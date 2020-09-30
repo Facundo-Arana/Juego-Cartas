@@ -20,35 +20,18 @@ public class Carta {
 		atributos.add(atr);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// @ return un atributo random.
-	public Atributo getAtributoRandom() {
-		int i = (int) (atributos.size() * Math.random());
-		return this.getAtributo(i);
+	public Atributo getAtributo(String atributoYaSeleccionado) {
+		Atributo atr = buscarAtributo(atributoYaSeleccionado);
+		return atr;
 	}
 
-	// @ return una copia del atributo que se va a comparar.
-	private Atributo getAtributo(int i) {
-		String nombre = atributos.get(i).getNombre();
-		double valor = atributos.get(i).getValor();
-
-		Atributo copia = new Atributo(nombre, valor);
-		return copia;
+	public Atributo buscarAtributo(String nombre) {
+		for(int i = 0; i < atributos.size(); i++) {
+			if(atributos.get(i).getNombre().equals(nombre))
+				return atributos.get(i);
+		}
+		return null; // no deberia ser null nunca.
 	}
-
+	
+	
 }
