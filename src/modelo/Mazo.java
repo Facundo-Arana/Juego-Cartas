@@ -19,16 +19,75 @@ public class Mazo {
 	public Mazo() {
 		cartas = new ArrayList<>();
 	}
+	
+	/**
+	 * Verifica una carta antes de añadirla.
+	 */
+	public void setCarta(Carta carta) {
+		if (this.verificacionCarta(carta))
+			cartas.add(carta);
+	}
 
-	public ArrayList<Carta> getCartas() {
-		return (ArrayList<Carta>) cartas;
+	/**
+	 * Compara una carta recibida con la primer carta del Mazo.
+	 */
+	private boolean verificacionCarta(Carta c) {
+
+		if ((cartas.size() == 0))
+			return true;
+
+		if (cartas.get(0).equals(c))
+			return true;
+
+		return false;
 	}
 
 	
 	/**
-	 * @param jsonFile se recibe la ruta donde se ubica el archivo .json
-	 * 
-	 * @return un mazo con cartas VERIFICADAS (son todos iguales a la primera).
+	 * Anañade una carta en la posicion 0. (push != setCarta).
+	 */
+	public void push(Carta c) {
+		cartas.add(0, c);
+	}
+
+	/**
+	 * @return la ultima carta y la borra.
+	 */
+	public Carta pop() {
+		int ultimaCarta = cartas.size() - 1;
+		Carta aux = cartas.get(ultimaCarta);
+		cartas.remove(ultimaCarta);
+		return aux;
+	}
+	
+	
+	/**
+	 * @return la cantidad de cartas en el mazo.
+	 */
+	public int size() {
+		return cartas.size();
+	}
+	
+	
+	/**
+	 * @return la primera carta (usado para seleccionar de ella un attr random).
+	 */
+	public Carta get() {
+		return cartas.get(0);
+	}
+	
+
+	public void mezclarCartas() {
+		Collections.shuffle(cartas);
+	}
+
+	public void mostrarCartas() {
+		for (Carta c : cartas)
+			System.out.println(c);
+	}
+
+	/**
+	 * @return un mazo con cartas verificadas (son todas iguales a la primera).
 	 */
 	public static Mazo cargarMazo(String jsonFile) {
 
@@ -51,62 +110,12 @@ public class Mazo {
 				for (String nombreAtributo : atributos.keySet()) {
 					cartaNueva.setAtributo(nombreAtributo, atributos.getInt(nombreAtributo));
 				}
-				// System.out.println(nombreCarta + "\t\t\t" + atributosStr);
 				m.setCarta(cartaNueva);
 			}
-
 			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		return m;
 	}
-
-	/**
-	 *  Verifica una carta antes de añadirla.
-	 * 
-	 * @param carta es la carta que se quiere añadir al Mazo.
-	 */
-	public void setCarta(Carta carta) {
-		if (this.verificacionCarta(carta))
-			cartas.add(carta);
-	}
-
-	
-	/**
-	 *  Compara una carta recibida con la primer carta del Mazo.
-	 */
-	private boolean verificacionCarta(Carta c) {
-	
-		// si no hay cartas en el Mazo se añade, esta carta fijara el pratron para las demas.
-		if ((cartas.size() == 0))
-			return true;
-		
-		
-		if (cartas.get(0).equals(c))
-			return true;
-		
-		return false;
-	}
-
-	// recibe una carta y la coloca en la posicion 0. // ( push() != setCarta() )
-	public void push(Carta c) {
-		cartas.add(0, c);
-	}
-
-	// devuelve la ultima carta y la borra.
-	public Carta pop() {
-		int ultimaCarta = cartas.size() - 1;
-		Carta aux = cartas.get(ultimaCarta);
-		cartas.remove(ultimaCarta);
-		return aux;
-	}
-
-	// mostrar todo el mazo
-	public void mostrarCartas() {
-		for (int i = 0; i < cartas.size(); i++) {
-			System.out.println(cartas.get(i).getNombre());
-		}
-	}
-
 }

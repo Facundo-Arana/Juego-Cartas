@@ -18,14 +18,9 @@ public class Atributo {
 		return this.valor;
 	}
 
-	public boolean equals(Object o) {
-		try {
-			Atributo otro = (Atributo) o;
-			return this.getNombre().equals(otro.getNombre());
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+	@Override
+	public boolean equals(Object nombre) {
+		return this.getNombre().equals(nombre);
 	}
 
 //	public int comparar(Atributo otroAtributo) {		

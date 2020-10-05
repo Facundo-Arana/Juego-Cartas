@@ -1,8 +1,5 @@
 package modelo;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class Jugador {
 
 	private String nombre;
@@ -21,4 +18,12 @@ public class Jugador {
 		return this.cartas;
 	}
 
+	
+	public boolean tieneCartas() {
+		return cartas.size() > 0;
+	}
+
+	public String seleccionarAtributoRandom() {
+		return cartas.get().getAtributoRandom();
+	}
 }

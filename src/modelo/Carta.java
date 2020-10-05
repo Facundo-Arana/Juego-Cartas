@@ -21,33 +21,46 @@ public class Carta {
 		atributos.add(atr);
 	}
 
-	public Atributo getAtributo(String nombre) {
-		Atributo atr = buscarAtributo(nombre);
-		return atr;
+	/**
+	 * @return el nombre de un atributo aleatorio.
+	 */
+	public String getAtributoRandom() {
+		int i = (int) (atributos.size() * Math.random());
+		return atributos.get(i).getNombre();
 	}
 
-	public Atributo buscarAtributo(String nombre) {
-		int i = atributos.lastIndexOf(nombre);
-		return atributos.get(i);
+	/**
+	 * @return un atributo dado un nombre de atributo.
+	 */
+	public Atributo getAtributo(String nombre) {
+		int i = atributos.indexOf(nombre);
+		Atributo atr = atributos.get(i);
+		return atr;
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		try {
 			Carta otra = (Carta) o;
-			
+
 			// dos cartas son iguales si comparten todos los atributos una con la otra
 			// y ademas deben tener distinto nombre.
-			
+
 			if (!this.getNombre().equals(otra.getNombre()))
 				if (this.atributos.containsAll(otra.atributos))
 					if (otra.atributos.containsAll(this.atributos))
 						return true;
-			return false;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return this.nombre;
 	}
 
 }
