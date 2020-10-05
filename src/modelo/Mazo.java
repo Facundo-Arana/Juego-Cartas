@@ -19,66 +19,94 @@ public class Mazo {
 	public Mazo() {
 		cartas = new ArrayList<>();
 	}
+
+	public ArrayList<Carta> getCartas() {
+		return (ArrayList<Carta>) cartas;
+	}
+
 	
-	public void cargarMazo(String jsonFile) { //eliminado static
-		
-		// URL url = getClass().getResource(jsonFile);
+	/**
+	 * @param jsonFile se recibe la ruta donde se ubica el archivo .json
+	 * 
+	 * @return un mazo con cartas VERIFICADAS (son todos iguales a la primera).
+	 */
+	public static Mazo cargarMazo(String jsonFile) {
+
 		File jsonInputFile = new File(jsonFile);
 		InputStream is;
+		Mazo m = new Mazo();
 
 		try {
-			// Creo el objeto JsonReader de Json.
 			is = new FileInputStream(jsonInputFile);
 			JsonReader reader = Json.createReader(is);
-			// Obtenemos el JsonObject a partir del JsonReader.
-			
+
 			JsonArray cartas = (JsonArray) reader.readObject().getJsonArray("cartas");
+
 			for (JsonObject carta : cartas.getValuesAs(JsonObject.class)) {
+
 				String nombreCarta = carta.getString("nombre");
 				JsonObject atributos = (JsonObject) carta.getJsonObject("atributos");
-				//String atributosStr = "";
+
 				Carta cartaNueva = new Carta(nombreCarta);
 				for (String nombreAtributo : atributos.keySet()) {
-					
 					cartaNueva.setAtributo(nombreAtributo, atributos.getInt(nombreAtributo));
-					//atributosStr = atributosStr + nombreAtributo + ":" + atributos.getInt(nombreAtributo) + "; ";
-				}					
-				//System.out.println(nombreCarta + "\t\t\t" + atributosStr);
-			
-				setCarta(cartaNueva);//eliminado mazo.
+				}
+				// System.out.println(nombreCarta + "\t\t\t" + atributosStr);
+				m.setCarta(cartaNueva);
 			}
+
 			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-	}//fin metodo cargarMazo
-	
-	
+		return m;
+	}
+
+	/**
+	 *  Verifica una carta antes de añadirla.
+	 * 
+	 * @param carta es la carta que se quiere añadir al Mazo.
+	 */
 	public void setCarta(Carta carta) {
-		if (this.verificarCarta(carta)) {
+		if (this.verificacionCarta(carta))
 			cartas.add(carta);
-		}
 	}
 
-	//Copia de ArrayList para usar en repartir cartas	
-	public ArrayList<Carta> copiaMazo(){//metodo publico para que ande... F
-		return (ArrayList<Carta>) cartas.clone();
-	}
 	
-	private boolean verificarCarta(Carta carta) {
-		// TODO
-		return true;
-	}
+	/**
+	 *  Compara una carta recibida con la primer carta del Mazo.
+	 */
+	private boolean verificacionCarta(Carta c) {
 	
+		// si no hay cartas en el Mazo se añade, esta carta fijara el pratron para las demas.
+		if ((cartas.size() == 0))
+			return true;
+		
+		
+		if (cartas.get(0).equals(c))
+			return true;
+		
+		return false;
+	}
 
+	// recibe una carta y la coloca en la posicion 0. // ( push() != setCarta() )
+	public void push(Carta c) {
+		cartas.add(0, c);
+	}
 
-	// solo para chequear que funciona el metodo cargarCartas.
+	// devuelve la ultima carta y la borra.
+	public Carta pop() {
+		int ultimaCarta = cartas.size() - 1;
+		Carta aux = cartas.get(ultimaCarta);
+		cartas.remove(ultimaCarta);
+		return aux;
+	}
+
+	// mostrar todo el mazo
 	public void mostrarCartas() {
 		for (int i = 0; i < cartas.size(); i++) {
 			System.out.println(cartas.get(i).getNombre());
 		}
 	}
-	
-	
 
 }
