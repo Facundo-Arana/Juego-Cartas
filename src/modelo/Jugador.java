@@ -12,6 +12,10 @@ public class Jugador {
 		this.nombre = nombre;
 		cartas = new Mazo();
 	}
+	
+	public int totalCartas() {
+		return cartas.size();
+	}
 
 	public Carta soltarCarta() {
 		return this.cartas.pop();

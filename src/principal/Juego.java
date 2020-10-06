@@ -9,7 +9,7 @@ import modelo.Mazo;
 public class Juego {
 
 	public static void main(String[] args) {
-		Juego juego = new Juego(50);
+		Juego juego = new Juego(500);
 		Mazo mazo = new Mazo();
 		mazo = Mazo.cargarMazo("./superheroes.json");
 		// mazo.mostrarCartas();
@@ -54,11 +54,13 @@ public class Juego {
 			resultado = this.determinarGanadorRonda(cartaJ1, cartaJ2, attr);
 
 			//
-			if (resultado == 0)
+			if (resultado == 0) {
 				System.out.println("Hubo un empate");
-			else {
+				this.darCartasAlGanador(j1, j2, cartaJ1, cartaJ2, resultado);
+			}else {
 				iniciaRonda = this.darCartasAlGanador(j1, j2, cartaJ1, cartaJ2, resultado);
 				System.out.println(iniciaRonda + " gano la ronda ");
+				System.out.println(j1 + " tiene: "+j1.totalCartas()+" cartas y "+ j2 + " tiene: "+j2.totalCartas());
 			}
 
 			System.out.println();
@@ -99,7 +101,11 @@ public class Juego {
 
 	private Jugador darCartasAlGanador(Jugador j1, Jugador j2, Carta carta1, Carta carta2, int resultado) {
 
-		if (resultado > 0) {
+		if(resultado==0){
+			j1.tomarCarta(carta1);
+			j2.tomarCarta(carta2);
+			return null;
+		}else if (resultado > 0) {
 			j1.tomarCarta(carta1);
 			j1.tomarCarta(carta2);
 			return j1;
