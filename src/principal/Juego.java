@@ -1,3 +1,4 @@
+
 package principal;
 
 import java.io.BufferedReader;
@@ -22,7 +23,7 @@ public class Juego {
 	 * 
 	 * cargar mazo
 	 * 
-	 * juego.repartirCartas(j1, j2, mazo); 
+	 * juego.repartirCartas(j1, j2, mazo);
 	 * 
 	 * El mazo inicial se repartira en partes iguales a cada jugador, El jugador
 	 * tendra su propio mazo que sera una mitad del mazo inicial. El mazo inicial
@@ -56,48 +57,59 @@ public class Juego {
 
 		mazo = Mazo.cargarMazo("./superheroes.json");
 
-		//mazo.mostrarCartas();//TODO solo muestra superman
+		// mazo.mostrarCartas();
 
 		Jugador j1 = new Jugador("Facundo");
-		//j1.crearNombre();
+		// j1.crearNombre();
 		Jugador j2 = new Jugador("Gabriel");
-		//j2.crearNombre();
-		
+		// j2.crearNombre();
+
 		juego.repartir(j1, j2, mazo);
-		
-		//int turnos=juego.cantidadTurnos();
-		int auxPrueba = 6;//para no pregunta a cada rato mando un valor fijo
-		juego.jugar(j1, j2,auxPrueba);
+
+		// int turnos=juego.cantidadTurnos();
+		int auxPrueba = 6;// para no pregunta a cada rato mando un valor fijo
+		juego.jugar(j1, j2, auxPrueba);
 
 	}
-														
-	public void jugar(Jugador j1, Jugador j2,Integer turnos) {
+
+	public void jugar(Jugador j1, Jugador j2, Integer turnos) {
 		int i = 0;
+		boolean turnoJ1 = true;// boolean para
 		boolean ganador = false;
-		
-//		System.out.println("cartas j1");
-//		j1.getMazo().imprimirMazo();
-//		
-//		System.out.println("cartas j2");
-//		j2.getMazo().imprimirMazo();
-//		
-		while(ganador==false && i < turnos) {
-				
-			Carta cartaJ1 = new Carta();
-			Carta cartaJ2 = new Carta();
-						
+
+		Carta cartaJ1 = new Carta();
+		Carta cartaJ2 = new Carta();
+
+		while (ganador == false && i < turnos) {
+			// tomo la ultima carta del mazo de cada jugador;
 			cartaJ1 = j1.tomarCarta();
 			cartaJ2 = j2.tomarCarta();
-			
-		System.out.println(cartaJ1);
-		System.out.println(" ");
-		
-			//seleccionar atributo ramdon aca
-		
-			//compara atributos de ambas cartas
-			
-			i++;				 
+
+//AYUDA----Imprime cada turno la carta que tomo de cada jugador----
+//		System.out.println(cartaJ1);
+//		System.out.println(" ");
+//		System.out.println(cartaJ2);
+//		System.out.println(" ");
+
+			// compararAtributo(cartaJ1,cartaJ2,atributo)
+
+			String compare = "";
+			if (turnoJ1 == true) {//TurnoJ1 cambiar a Ganador o Otro 
+				compare = j1.seleccionarAtributoRandom();
+				this.imprimirDatos(j1,j2,cartaJ1,cartaJ2,compare);
+			} else {
+				compare = j1.seleccionarAtributoRandom();
+				this.imprimirDatos(j2,j1,cartaJ2,cartaJ1,compare);	
 			}
+
+			i++;
+		}
+	}
+	
+	public void imprimirDatos(Jugador x, Jugador y, Carta x1, Carta y2, String atrib) {
+		System.out.println( x.getNombre() + " Tomo la Carta de: " + x1.getNombre()+ " y selecciono el atributo: "+ atrib +" para competir" );
+		System.out.println( y.getNombre()+" Tomo la Carta de: "+ y2.getNombre()+" para competir.");	
+		System.out.println("");
 	}
 
 	/**
@@ -105,11 +117,7 @@ public class Juego {
 	 */
 	public void repartir(Jugador j1, Jugador j2, Mazo mazo) {
 		mazo.mezclarCartas();
-//	mazo.mostrarCartas();
-		
-//		System.out.println(mazo.size());
-		//mazo.imprimirMazo();
-		
+
 		for (int i = mazo.size(); i > 0; i--) {
 			if ((i % 2) == 0)
 				j1.getMazo().push(mazo.pop());
@@ -117,7 +125,7 @@ public class Juego {
 				j2.getMazo().push(mazo.pop());
 		}
 	}
-	
+
 	/**
 	 * Seleciona la cantidad de turnos a Jugar
 	 */

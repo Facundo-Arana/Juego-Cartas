@@ -5,6 +5,11 @@ public class Atributo {
 	private String nombre;
 	private double valor;
 
+	public Atributo() {
+		this.nombre = "auxiliar";
+		this.valor = valor;
+	}
+
 	public Atributo(String nombre, double valor) {
 		this.nombre = nombre;
 		this.valor = valor;
