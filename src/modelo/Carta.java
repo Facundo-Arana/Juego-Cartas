@@ -7,6 +7,11 @@ public class Carta {
 	private String nombre;
 	private ArrayList<Atributo> atributos;
 
+	public Carta() {    //creado para crear carta auxiliar
+		this.nombre = "auxiliar";
+		this.atributos = new ArrayList<>();
+	}
+	
 	public Carta(String nombre) {
 		this.nombre = nombre;
 		this.atributos = new ArrayList<>();
@@ -46,7 +51,7 @@ public class Carta {
 			// dos cartas son iguales si comparten todos los atributos una con la otra
 			// y ademas deben tener distinto nombre.
 
-			if (!this.getNombre().equals(otra.getNombre()))
+			
 				if (this.atributos.containsAll(otra.atributos))
 					if (otra.atributos.containsAll(this.atributos))
 						return true;
@@ -60,7 +65,7 @@ public class Carta {
 
 	@Override
 	public String toString() {
-		return this.nombre;
+		return "Carta [nombre=" + nombre + ", atributos=" + atributos + "]";
 	}
 
 }

@@ -37,9 +37,9 @@ public class Mazo {
 			return true;
 
 		if (cartas.get(0).equals(c))
-			return true;
+			return false;
 
-		return false;
+		return true;
 	}
 
 	
@@ -118,4 +118,5 @@ public class Mazo {
 		}
 		return m;
 	}
+	
 }

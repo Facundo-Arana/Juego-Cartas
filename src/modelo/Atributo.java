@@ -23,13 +23,9 @@ public class Atributo {
 		return this.getNombre().equals(nombre);
 	}
 
-//	public int comparar(Atributo otroAtributo) {		
-//		if(this.valor > otroAtributo.getValor())
-//			return 1;
-//		else if(this.valor < otroAtributo.getValor())
-//			return -1;
-//		else
-//			return 0;
-//	}
+	@Override
+	public String toString() {
+		return "\n Atributo [nombre=" + nombre + " valor=" + valor + "]";
+	}
 
 }
