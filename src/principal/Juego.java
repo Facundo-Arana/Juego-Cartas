@@ -1,115 +1,120 @@
 
 package principal;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
+import modelo.Atributo;
 import modelo.Carta;
 import modelo.Jugador;
 import modelo.Mazo;
 
 public class Juego {
 
-	/**
-	 * Descripcion de como se desarrollara el juego.
-	 * 
-	 * // primero lo que ocurre en el main.
-	 * 
-	 * crear Juego
-	 * 
-	 * crear Mazo
-	 * 
-	 * crear Jugador (j1 y j2).
-	 * 
-	 * cargar mazo
-	 * 
-	 * juego.repartirCartas(j1, j2, mazo);
-	 * 
-	 * El mazo inicial se repartira en partes iguales a cada jugador, El jugador
-	 * tendra su propio mazo que sera una mitad del mazo inicial. El mazo inicial
-	 * quedara vacio luego de ser repartido.
-	 * 
-	 * juego.jugar(j1, j2);
-	 * 
-	 * El metodo jugar() se encargara de verificar las jugadas hasta que resulte un
-	 * ganador o se de el maximo de rondas.
-	 * 
-	 * //termina lo que se realiza en el main.
-	 * 
-	 * 
-	 * arrancan las jugadas (bucle while hasta MAX_JUGADAS o resulte un ganador).
-	 * 
-	 * jugador 1 elije el atributo a comparar. //String del nombre del atributo.
-	 * 
-	 * j1 y j2 sueltan sus cartas(pop).
-	 * 
-	 * de cada carta se obtiene el atributo seleccionado y se comparan.
-	 * 
-	 * se reparten las cartas segun el resultado de esta comparacion.
-	 * 
-	 * y asi hasta que termine.
-	 * 
-	 */
-
 	public static void main(String[] args) {
-		Juego juego = new Juego();
+		Juego juego = new Juego(50);
 		Mazo mazo = new Mazo();
-
 		mazo = Mazo.cargarMazo("./superheroes.json");
-
 		// mazo.mostrarCartas();
-
 		Jugador j1 = new Jugador("Facundo");
 		// j1.crearNombre();
 		Jugador j2 = new Jugador("Gabriel");
 		// j2.crearNombre();
-
 		juego.repartir(j1, j2, mazo);
 
-		// int turnos=juego.cantidadTurnos();
-		int auxPrueba = 6;// para no pregunta a cada rato mando un valor fijo
-		juego.jugar(j1, j2, auxPrueba);
-
+		juego.jugar(j1, j2);
 	}
 
-	public void jugar(Jugador j1, Jugador j2, Integer turnos) {
-		int i = 0;
-		boolean turnoJ1 = true;// boolean para
-		boolean ganador = false;
+	private int maxJugadas;
 
-		Carta cartaJ1 = new Carta();
-		Carta cartaJ2 = new Carta();
+	public Juego(int numeroMaxJugadas) {
+		maxJugadas = numeroMaxJugadas;
+	}
 
-		while (ganador == false && i < turnos) {
-			// tomo la ultima carta del mazo de cada jugador;
-			cartaJ1 = j1.tomarCarta();
-			cartaJ2 = j2.tomarCarta();
+	public void jugar(Jugador j1, Jugador j2) {
+		int i = 1;
+		boolean hayGanador = false;
 
-//AYUDA----Imprime cada turno la carta que tomo de cada jugador----
-//		System.out.println(cartaJ1);
-//		System.out.println(" ");
-//		System.out.println(cartaJ2);
-//		System.out.println(" ");
+		Jugador iniciaRonda = j1;
 
-			// compararAtributo(cartaJ1,cartaJ2,atributo)
+		int resultado = 0;
 
-			String compare = "";
-			if (turnoJ1 == true) {//TurnoJ1 cambiar a Ganador o Otro 
-				compare = j1.seleccionarAtributoRandom();
-				this.imprimirDatos(j1,j2,cartaJ1,cartaJ2,compare);
-			} else {
-				compare = j1.seleccionarAtributoRandom();
-				this.imprimirDatos(j2,j1,cartaJ2,cartaJ1,compare);	
+		while (!(hayGanador) && (i < maxJugadas)) {
+			System.out.println("------- RONDA " + i + " -------");
+
+			// El jugador ganador de la ultima ronda elije el atributo.
+			Atributo attr = iniciaRonda.seleccionarAtributoRandom();
+			System.out.println("El jugador " + iniciaRonda + " selecciona competir por atributo " + attr.getNombre());
+
+			// LOS DOS JUGADORES SUELTAN SU CARTA.
+			Carta cartaJ1 = j1.soltarCarta();
+			System.out.println(j1 + " jugo la carta " + cartaJ1 + " con " + cartaJ1.getAtributo(attr));
+
+			Carta cartaJ2 = j2.soltarCarta();
+			System.out.println(j2 + " jugo la carta " + cartaJ2 + " con " + cartaJ2.getAtributo(attr));
+
+			// Se determina quien gano la jugada.
+			resultado = this.determinarGanadorRonda(cartaJ1, cartaJ2, attr);
+
+			//
+			if (resultado == 0)
+				System.out.println("Hubo un empate");
+			else {
+				iniciaRonda = this.darCartasAlGanador(j1, j2, cartaJ1, cartaJ2, resultado);
+				System.out.println(iniciaRonda + " gano la ronda ");
 			}
 
+			System.out.println();
+
+			if (this.hayGanador(j1, j2)) {
+				this.victoria(j1, j2);
+				hayGanador = true;
+			}
 			i++;
 		}
+		if (!hayGanador)
+			System.out.println("HUBO UN EMPATE");
+		
+		else {
+			System.out.println("las cartas de " + j1 + " son:");
+			j1.mostrarCartas();
+
+			System.out.println();
+
+			System.out.println("las cartas de " + j2 + " son:");
+			j2.mostrarCartas();
+		}
 	}
-	
-	public void imprimirDatos(Jugador x, Jugador y, Carta x1, Carta y2, String atrib) {
-		System.out.println( x.getNombre() + " Tomo la Carta de: " + x1.getNombre()+ " y selecciono el atributo: "+ atrib +" para competir" );
-		System.out.println( y.getNombre()+" Tomo la Carta de: "+ y2.getNombre()+" para competir.");	
-		System.out.println("");
+
+	public void victoria(Jugador j1, Jugador j2) {
+		if (j1.tieneCartas())
+			System.out.println(j1 + " gano la partida");
+		else
+			System.out.println(j2 + " gano la partida");
+	}
+
+	public boolean hayGanador(Jugador j1, Jugador j2) {
+		if (j1.tieneCartas() && j2.tieneCartas())
+			return false;
+		else
+			return true;
+	}
+
+	private Jugador darCartasAlGanador(Jugador j1, Jugador j2, Carta carta1, Carta carta2, int resultado) {
+
+		if (resultado > 0) {
+			j1.tomarCarta(carta1);
+			j1.tomarCarta(carta2);
+			return j1;
+		} else {
+			j2.tomarCarta(carta1);
+			j2.tomarCarta(carta2);
+			return j2;
+		}
+	}
+
+	/**
+	 * Determina si hubo un ganador o empate.
+	 */
+	public int determinarGanadorRonda(Carta c1, Carta c2, Atributo attr) {
+		return c1.getAtributo(attr).compareTo(c2.getAtributo(attr));
 	}
 
 	/**
@@ -117,30 +122,12 @@ public class Juego {
 	 */
 	public void repartir(Jugador j1, Jugador j2, Mazo mazo) {
 		mazo.mezclarCartas();
-
 		for (int i = mazo.size(); i > 0; i--) {
 			if ((i % 2) == 0)
-				j1.getMazo().push(mazo.pop());
+				j1.tomarCarta(mazo.pop());
 			else
-				j2.getMazo().push(mazo.pop());
+				j2.tomarCarta(mazo.pop());
 		}
-	}
-
-	/**
-	 * Seleciona la cantidad de turnos a Jugar
-	 */
-	public int cantidadTurnos() {
-		BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
-		int turnos = 0;
-		do {
-			System.out.println("Ingrese Cantidad de Turnos a Jugar:");
-			try {
-				turnos = new Integer(entrada.readLine());
-			} catch (Exception exc) {
-				System.out.println("Error valor no valido");
-			}
-		} while (turnos < 0);
-		return turnos;
 	}
 
 }

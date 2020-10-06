@@ -19,13 +19,13 @@ public class Mazo {
 	public Mazo() {
 		cartas = new ArrayList<>();
 	}
-	
+
 	/**
-	 * Verifica una carta antes de añadirla.
+	 * Verifica una carta antes de añadirla al FINAL de la lista.
 	 */
 	public void setCarta(Carta carta) {
 		if (this.verificacionCarta(carta))
-			cartas.add(carta);
+			push(carta);
 	}
 
 	/**
@@ -33,18 +33,17 @@ public class Mazo {
 	 */
 	private boolean verificacionCarta(Carta c) {
 
-		if ((cartas.size() == 0))
+		if ((this.size() == 0))
 			return true;
 
-		if (cartas.get(0).equals(c))
-			return false;
+		if (this.getPrimeraCarta().perteneAlMismoMazo(c))
+			return true;
 
-		return true;
+		return false;
 	}
 
-	
 	/**
-	 * Anañade una carta en la posicion 0. (push != setCarta).
+	 * Anañade una carta al PRINCIPIO de la lista. !!!!! (push != setCarta).
 	 */
 	public void push(Carta c) {
 		cartas.add(0, c);
@@ -59,23 +58,20 @@ public class Mazo {
 		cartas.remove(ultimaCarta);
 		return aux;
 	}
-	
-	
+
+	/**
+	 * @return la primera carta.
+	 */
+	public Carta getPrimeraCarta() {
+		return cartas.get(0);
+	}
+
 	/**
 	 * @return la cantidad de cartas en el mazo.
 	 */
 	public int size() {
 		return cartas.size();
 	}
-	
-	
-	/**
-	 * @return la primera carta (usado para seleccionar de ella un attr random).
-	 */
-	public Carta get() {
-		return cartas.get(0);
-	}
-	
 
 	public void mezclarCartas() {
 		Collections.shuffle(cartas);
@@ -118,5 +114,5 @@ public class Mazo {
 		}
 		return m;
 	}
-	
+
 }

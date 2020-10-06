@@ -12,45 +12,50 @@ public class Jugador {
 		this.nombre = nombre;
 		cartas = new Mazo();
 	}
-	
-	public Carta tomarCarta() {
-		Carta aux= new Carta();
-		aux = this.cartas.pop();
-		return aux;
+
+	public Carta soltarCarta() {
+		return this.cartas.pop();
+	}
+
+	public void tomarCarta(Carta c) {
+		this.cartas.push(c);
 	}
 
 	public String getNombre() {
 		return this.nombre;
 	}
 
-	public Mazo getMazo() {
-		return this.cartas;
+	public void mostrarCartas() {
+		this.cartas.mostrarCartas();
 	}
 
 	public boolean tieneCartas() {
 		return cartas.size() > 0;
 	}
 
-	public String seleccionarAtributoRandom() {
-		return cartas.get().getAtributoRandom();
+	public Atributo seleccionarAtributoRandom() {
+		return cartas.getPrimeraCarta().getAtributoRandom();
 	}
-	
-	/*///////////////////////////////////////////////
-	 * 		Setear nombre de Jugadores Por Teclado 
-	 *///////////////////////////////////////////////*/
-	
+
+	@Override
+	public String toString() {
+		return nombre;
+	}
+
+	/*
+	 * Setear nombre de Jugadores.
+	 */
 	public void crearNombre() {
 		BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
 		String nombre = "";
-		do {
+		while (nombre == "") {
 			try {
 				System.out.println("Ingrese Nombre Jugador:");
 				nombre = new String(entrada.readLine());
 			} catch (Exception exc) {
-				System.out.println(exc);
+				nombre = "";
 			}
-		} while (nombre == "");
-
+		}
 		this.setNombre(nombre);
 	}
 
