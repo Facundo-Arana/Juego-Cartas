@@ -21,7 +21,7 @@ public class Mazo {
 	}
 
 	/**
-	 * Verifica una carta antes de añadirla al FINAL de la lista.
+	 * Verifica una carta antes de añadirla a la lista.
 	 */
 	public void setCarta(Carta carta) {
 		if (this.verificacionCarta(carta))
@@ -73,6 +73,9 @@ public class Mazo {
 		return cartas.size();
 	}
 
+	/**
+	 * Mezcla las cartas (idealmente antes de ser repartidas).
+	 */
 	public void mezclarCartas() {
 		Collections.shuffle(cartas);
 	}
@@ -86,33 +89,36 @@ public class Mazo {
 	 * @return un mazo con cartas verificadas (son todas iguales a la primera).
 	 */
 	public static Mazo cargarMazo(String jsonFile) {
-
 		File jsonInputFile = new File(jsonFile);
 		InputStream is;
-		Mazo m = new Mazo();
 
+		// se hace un nuevo mazo vacio.
+		Mazo m = new Mazo();
 		try {
 			is = new FileInputStream(jsonInputFile);
 			JsonReader reader = Json.createReader(is);
-
 			JsonArray cartas = (JsonArray) reader.readObject().getJsonArray("cartas");
-
 			for (JsonObject carta : cartas.getValuesAs(JsonObject.class)) {
-
 				String nombreCarta = carta.getString("nombre");
 				JsonObject atributos = (JsonObject) carta.getJsonObject("atributos");
 
+				// se hace una nueva carta vacia.
 				Carta cartaNueva = new Carta(nombreCarta);
+
+				// se cargan los atributos.
 				for (String nombreAtributo : atributos.keySet()) {
 					cartaNueva.setAtributo(nombreAtributo, atributos.getInt(nombreAtributo));
 				}
+
+				// se añade al mazo (solo si pasa la verificacion).
 				m.setCarta(cartaNueva);
 			}
 			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+
+		// retorna el mazo ya cargado.
 		return m;
 	}
-
 }

@@ -75,4 +75,8 @@ public class Carta {
 		return nombre;// "Carta [nombre=" + nombre + ", atributos=" + atributos + "]";
 	}
 
+	public int comparar(Atributo attr, Carta c2) {
+		return getAtributo(attr).compareTo(c2.getAtributo(attr));
+	}
+
 }
