@@ -9,32 +9,19 @@ import modelo.Mazo;
 public class Juego {
 
 	public static void main(String[] args) {
-		Juego juego = new Juego(500);
+		Juego juego = new Juego(100);
 		Mazo mazo = new Mazo();
 		mazo = Mazo.cargarMazo("./superheroes.json");
-
 		Jugador j1 = new Jugador("Facundo");
-
 		Jugador j2 = new Jugador("Gabriel");
-
 		juego.repartir(j1, j2, mazo);
 
-		juego.jugar(j1, j2);
-	}
-
-	private int maxJugadas;
-
-	public Juego(int numeroMaxJugadas) {
-		maxJugadas = numeroMaxJugadas;
-	}
-
-	public void jugar(Jugador j1, Jugador j2) {
 		int i = 1;
 		boolean hayGanador = false;
-
+		
 		Jugador iniciaRonda = j1;
 
-		while (!(hayGanador) && (i <= maxJugadas)) {
+		while (!(hayGanador) && (i <= juego.maxJugadas)) {
 
 			// El jugador ganador de la ultima ronda elije el atributo.
 			Atributo attr = iniciaRonda.seleccionarAtributoRandom();
@@ -44,31 +31,34 @@ public class Juego {
 			Carta cartaJ2 = j2.soltarCarta();
 
 			// Informa las acciones ocurridas hasta el momento en la ronda.
-			this.informar(i, iniciaRonda, cartaJ1, cartaJ2, attr, j1, j2);
+			juego.informar(i, iniciaRonda, cartaJ1, cartaJ2, attr, j1, j2);
 
-			// resultado de la comparacion del atributo seleccionado en las cartas jugadas.
-			int resultado = cartaJ1.comparar(attr, cartaJ2);
-
-			iniciaRonda = this.determinarGanadorRonda(j1, j2, cartaJ1, cartaJ2, iniciaRonda, resultado);
-
-			// informar cantidad cartas de los jugadores.
-			System.out.println(j1 + " tiene " + j1.totalCartas() + " cartas. " + j2 + " tiene " + j2.totalCartas() + " cartas.");
-
+			//determina quien inicia la proxima ronda eh informa quien gana.
+			iniciaRonda = juego.determinarGanadorRonda(j1, j2, cartaJ1, cartaJ2, iniciaRonda,attr);
+			
+			//imprimir el total de cartas deca jugador luego de jugada la ronda
+			System.out.println(j1 + " tiene: "+j1.totalCartas()+" cartas y "+ j2 + " tiene: "+j2.totalCartas());
 			System.out.println();
-			hayGanador = this.hayGanador(j1, j2);
+			hayGanador = juego.hayGanador(j1, j2);
 
 			i++;
 		}
 
 		if (!hayGanador)
 			System.out.println("Los jugadores empataron");
+	}
 
+	private int maxJugadas;
+
+	public Juego(int numeroMaxJugadas) {
+		maxJugadas = numeroMaxJugadas;
 	}
 
 	/**
 	 * Determina si hubo un ganador o empate.
 	 */
-	public Jugador determinarGanadorRonda(Jugador j1, Jugador j2, Carta c1, Carta c2, Jugador ganadorPrevio, int res) {
+	public Jugador determinarGanadorRonda(Jugador j1, Jugador j2, Carta c1, Carta c2, Jugador ganadorPrevio, Atributo attr) {
+		int res = c1.comparar(attr, c2);
 
 		if (res > 0) {
 			this.darCartasAlGanador(j1, c1, c2);
@@ -84,12 +74,12 @@ public class Juego {
 		return ganadorPrevio;
 
 	}
-
+	
 	/**
 	 * Jugador que gano la ronda recibe las dos cartas jugadas.
 	 */
 	private void darCartasAlGanador(Jugador j, Carta carta1, Carta carta2) {
-		System.out.println(j + " gano la ronda");
+		System.out.println(j + " gano la ronda \n");
 		j.tomarCarta(carta1);
 		j.tomarCarta(carta2);
 	}
@@ -98,9 +88,7 @@ public class Juego {
 	 * Devuelva las cartas a los jugadores (en caso de empate).
 	 */
 	private void devolverCartas(Jugador j1, Jugador j2, Carta c1, Carta c2) {
-		System.out.println();
-		System.out.println("empate!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		System.out.println();
+		System.out.println("\n empate!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! \n");
 		j1.tomarCarta(c1);
 		j2.tomarCarta(c2);
 	}
@@ -110,11 +98,11 @@ public class Juego {
 	 */
 	public boolean hayGanador(Jugador j1, Jugador j2) {
 		if (!j1.tieneCartas()) {
-			System.out.println(j2 + " gano la partida");
+			System.out.println(j2 + "gano la partida");
 			return true;
 		}
 		if (!j2.tieneCartas()) {
-			System.out.println(j1 + " gano la partida");
+			System.out.println(j1 + "gano la partida");
 			return true;
 		}
 		return false;
