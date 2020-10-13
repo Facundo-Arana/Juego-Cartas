@@ -1,7 +1,6 @@
 
 package principal;
 
-import modelo.Atributo;
 import modelo.Carta;
 import modelo.Jugador;
 import modelo.Mazo;
@@ -9,13 +8,15 @@ import modelo.Mazo;
 public class Juego {
 
 	public static void main(String[] args) {
+		
 		Juego juego = new Juego(100);
 		Mazo mazo = new Mazo();
 		mazo = Mazo.cargarMazo("./superheroes.json");
 		Jugador j1 = new Jugador("Facundo");
 		Jugador j2 = new Jugador("Gabriel");
+		//mazo.mostrarCartas();
 		juego.repartir(j1, j2, mazo);
-
+		
 		int i = 1;
 		boolean hayGanador = false;
 		
@@ -24,7 +25,7 @@ public class Juego {
 		while (!(hayGanador) && (i <= juego.maxJugadas)) {
 
 			// El jugador ganador de la ultima ronda elije el atributo.
-			Atributo attr = iniciaRonda.seleccionarAtributoRandom();
+			String attr = iniciaRonda.seleccionarAtributoRandom();
 
 			// LOS DOS JUGADORES SUELTAN SU CARTA.
 			Carta cartaJ1 = j1.soltarCarta();
@@ -34,7 +35,7 @@ public class Juego {
 			juego.informar(i, iniciaRonda, cartaJ1, cartaJ2, attr, j1, j2);
 
 			//determina quien inicia la proxima ronda eh informa quien gana.
-			iniciaRonda = juego.determinarGanadorRonda(j1, j2, cartaJ1, cartaJ2, iniciaRonda,attr);
+			iniciaRonda = juego.determinarGanadorRonda(j1, j2, cartaJ1, cartaJ2, iniciaRonda, attr);
 			
 			//imprimir el total de cartas deca jugador luego de jugada la ronda
 			System.out.println(j1 + " tiene: "+j1.totalCartas()+" cartas y "+ j2 + " tiene: "+j2.totalCartas());
@@ -57,7 +58,7 @@ public class Juego {
 	/**
 	 * Determina si hubo un ganador o empate.
 	 */
-	public Jugador determinarGanadorRonda(Jugador j1, Jugador j2, Carta c1, Carta c2, Jugador ganadorPrevio, Atributo attr) {
+	public Jugador determinarGanadorRonda(Jugador j1, Jugador j2, Carta c1, Carta c2, Jugador ganadorPrevio, String attr) {
 		int res = c1.comparar(attr, c2);
 
 		if (res > 0) {
@@ -125,10 +126,10 @@ public class Juego {
 	 * Informa el numero de ronda Informa el atributo por el que los jugadores van a
 	 * competir y que jugador lo eligio. Informa la cartas jugadas.
 	 */
-	private void informar(int i, Jugador ini, Carta c1, Carta c2, Atributo attr, Jugador j1, Jugador j2) {
+	private void informar(int i, Jugador ini, Carta c1, Carta c2, String attr, Jugador j1, Jugador j2) {
 		System.out.println("------- Ronda " + i + " -------");
-		System.out.println("El jugador " + ini + " selecciona competir por atributo " + attr.getNombre());
-		System.out.println(j1 + " jugo la carta " + c1 + " con " + c1.getAtributo(attr));
-		System.out.println(j2 + " jugo la carta " + c2 + " con " + c2.getAtributo(attr));
+		System.out.println("El jugador " + ini + " selecciona competir por atributo " + attr);
+		System.out.println(j1 + " jugo la carta " + c1 + " con " + c1.getValorAtributo(attr));
+		System.out.println(j2 + " jugo la carta " + c2 + " con " + c2.getValorAtributo(attr));
 	}
 }
