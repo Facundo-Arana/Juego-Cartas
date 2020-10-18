@@ -1,4 +1,4 @@
-package modelo;
+package juego_cartas.modelo;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,10 +17,11 @@ public class Mazo {
 	private ArrayList<Carta> cartas;
 
 	public Mazo() {
-		cartas = new ArrayList<>();
+		cartas =new ArrayList<>();
 	}
 
 	/**
+	 * 
 	 * Verifica una carta antes de añadirla a la lista.
 	 */
 	public void setCarta(Carta carta) {
@@ -29,11 +30,12 @@ public class Mazo {
 	}
 
 	/**
+	 * 
 	 * Compara una carta recibida con la primer carta del Mazo.
 	 */
 	private boolean verificacionCarta(Carta c) {
 
-		if ((this.size() == 0))
+		if ((this.size() == 0)) 
 			return true;
 
 		if (this.getPrimeraCarta().perteneAlMismoMazo(c))
@@ -43,6 +45,7 @@ public class Mazo {
 	}
 
 	/**
+	 * 
 	 * Anañade una carta al PRINCIPIO de la lista. !!!!! (push != setCarta).
 	 */
 	public void push(Carta c) {
@@ -50,6 +53,7 @@ public class Mazo {
 	}
 
 	/**
+	 * 
 	 * @return la ultima carta y la borra.
 	 */
 	public Carta pop() {
@@ -60,6 +64,7 @@ public class Mazo {
 	}
 
 	/**
+	 * 
 	 * @return la primera carta.
 	 */
 	public Carta getPrimeraCarta() {
@@ -67,6 +72,7 @@ public class Mazo {
 	}
 
 	/**
+	 * 
 	 * @return la cantidad de cartas en el mazo.
 	 */
 	public int size() {
@@ -74,18 +80,22 @@ public class Mazo {
 	}
 
 	/**
+	 * 
 	 * Mezcla las cartas (idealmente antes de ser repartidas).
 	 */
 	public void mezclarCartas() {
 		Collections.shuffle(cartas);
 	}
-
+	
 	public void mostrarCartas() {
-		for (Carta c : cartas)
+		for (int i = 0; i < cartas.size(); i++) {
+			Carta c = cartas.get(i);
 			System.out.println(c);
+		}
 	}
 
 	/**
+	 * 
 	 * @return un mazo con cartas verificadas (son todas iguales a la primera).
 	 */
 	public static Mazo cargarMazo(String jsonFile) {

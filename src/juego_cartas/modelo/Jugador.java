@@ -1,4 +1,4 @@
-package modelo;
+package juego_cartas.modelo;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -7,6 +7,7 @@ public class Jugador {
 
 	private String nombre;
 	private Mazo cartas;
+	
 
 	public Jugador(String nombre) {
 		this.nombre = nombre;
@@ -37,7 +38,7 @@ public class Jugador {
 		return cartas.size() > 0;
 	}
 
-	public Atributo seleccionarAtributoRandom() {
+	public String seleccionarAtributoRandom() {
 		return cartas.getPrimeraCarta().getAtributoRandom();
 	}
 
