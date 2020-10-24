@@ -12,12 +12,14 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
+import juego_cartas.modelo.pocima.Pocima;
+
 public class Mazo {
 
 	private ArrayList<Carta> cartas;
 
 	public Mazo() {
-		cartas =new ArrayList<>();
+		cartas = new ArrayList<>();
 	}
 
 	/**
@@ -35,7 +37,7 @@ public class Mazo {
 	 */
 	private boolean verificacionCarta(Carta c) {
 
-		if ((this.size() == 0)) 
+		if ((this.size() == 0))
 			return true;
 
 		if (this.getPrimeraCarta().perteneAlMismoMazo(c))
@@ -86,7 +88,7 @@ public class Mazo {
 	public void mezclarCartas() {
 		Collections.shuffle(cartas);
 	}
-	
+
 	public void mostrarCartas() {
 		for (int i = 0; i < cartas.size(); i++) {
 			Carta c = cartas.get(i);
@@ -130,5 +132,18 @@ public class Mazo {
 
 		// retorna el mazo ya cargado.
 		return m;
+	}
+
+	/**
+	 * 
+	 * Dar a una carta la pocima recibida.
+	 */
+	public void addPocima(Pocima pocima) {
+		int num = this.cartas.size();
+		boolean ok = false;
+		while (!ok) {
+			int i = (int) (num * Math.random());
+			ok = cartas.get(i).setPocima(pocima);
+		}
 	}
 }

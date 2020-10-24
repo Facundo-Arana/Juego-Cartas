@@ -1,4 +1,4 @@
-package modelo;
+package juego_cartas.modelo;
 
 public class Atributo implements Comparable<Atributo> {
 
@@ -18,27 +18,35 @@ public class Atributo implements Comparable<Atributo> {
 		return this.valor;
 	}
 
+	public void setValor(int valor) {
+		this.valor = valor;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		try {
 			Atributo otro = (Atributo) o;
+			
 			if (this.getNombre().equals(otro.getNombre()))
 				return true;
+			else
+				return false;
+
 		} catch (Exception e) {
-			e.printStackTrace();
 			return false;
 		}
-		return false;
 	}
 
 	@Override
 	public String toString() {
-		return   nombre + " " + valor;//"\n Atributo [nombre=" + nombre + " valor=" + valor + "]";
+		return nombre + " " + valor;// "\n Atributo [nombre=" + nombre + " valor=" + valor + "]";
 	}
 
 	@Override
-	public int compareTo(Atributo otro) {		
+	public int compareTo(Atributo otro) {
 		return this.getValor() - otro.getValor();
 	}
+	
+	
 
 }
