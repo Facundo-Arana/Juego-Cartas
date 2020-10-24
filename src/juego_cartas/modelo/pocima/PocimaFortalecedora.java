@@ -12,12 +12,11 @@ public class PocimaFortalecedora extends Pocima {
 	}
 
 	@Override
-	public void aplicar(Atributo attr) {
-		int valor = attr.getValor();
-		int porcentajeAumento = (int) ((valor * this.aumento) / 100);		
-		int nuevoValor = valor + porcentajeAumento;
-		
-		attr.setValor(nuevoValor);
+	public int aplicar(Atributo attr) {
+		int valor = attr.getValor();	
+		int porcentaje = (int) Math.floor(valor * this.aumento / 100);	
+		int nuevoValor = valor + porcentaje;	
+		return nuevoValor;	
 	}
 
 }

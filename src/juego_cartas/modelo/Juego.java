@@ -85,12 +85,18 @@ public class Juego {
 	/**
 	 * 
 	 * Reparte todas las pocimas aleatoreamenta a las cartas del mazo.
+	 * Se dan las pocimas de una a la vez al mazo para que este se la asigne a una carta.
+	 * 
+	 * @param { boolean: ok } El mazo devueve false cuando no ha podido añadir una pocima,
+	 *  es decir que todas sus cartas ya tienen una pocima asignada.
+	 * 
 	 */
 	private void repartirPocimas(Mazo mazo) {
 		int num = this.pocimas.size();
-		while (num > 0) {
+		boolean ok = true;
+		while (num > 0 && ok) {
 			int random = (int) (num * Math.random());
-			mazo.addPocima(this.getPocima(random));
+			ok = mazo.addPocima(this.getPocima(random));
 			num--;
 		}
 	}
@@ -116,8 +122,14 @@ public class Juego {
 		String info = "";
 		info += "------- Ronda " + i + " -------" + "\n";
 		info += "El jugador " + ini + " selecciona competir por atributo " + attr + "\n";
-		info += j1 + " jugo la carta " + c1 + " con " + c1.getValorAtributo(attr) + "\n";
-		info += j2 + " jugo la carta " + c2 + " con " + c2.getValorAtributo(attr) + "\n";
+		info += j1 + " jugo la carta " + c1 + " con " + c1.getValorAtributoSinPocima(attr);
+		if(c1.tienePocima())
+			info += ", se aplico pócima " + c1.getNombrePocima() + " valor resultante " + c1.getValorAtributo(attr);
+		info += "\n";
+		info += j2 + " jugo la carta " + c2 + " con " + c2.getValorAtributoSinPocima(attr);
+		if(c2.tienePocima())
+			info += ", se aplico pócima " + c2.getNombrePocima() + " valor resultante " + c2.getValorAtributo(attr);
+		info += "\n";
 		return info;
 	}
 

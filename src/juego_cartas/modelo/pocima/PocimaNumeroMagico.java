@@ -11,8 +11,8 @@ public class PocimaNumeroMagico extends Pocima {
 	}
 
 	@Override
-	public void aplicar(Atributo attr) {
-		attr.setValor(this.numeroMagico);
+	public int aplicar(Atributo attr) {
+		return this.numeroMagico;
 	}
 
 }

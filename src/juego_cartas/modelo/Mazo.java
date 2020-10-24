@@ -89,11 +89,21 @@ public class Mazo {
 		Collections.shuffle(cartas);
 	}
 
-	public void mostrarCartas() {
-		for (int i = 0; i < cartas.size(); i++) {
-			Carta c = cartas.get(i);
-			System.out.println(c);
+	/**
+	 * 
+	 * Asignar a una carta la pocima recibida.
+	 * 
+	 * Se intenta añadir una pocima, si es que esta carta no tiene una pocima
+	 * asignada anteriormente.
+	 * 
+	 */
+	public boolean addPocima(Pocima pocima) {
+		int num = this.cartas.size();
+		for (int i = 0; i < num; i++) {
+			if (cartas.get(i).setPocima(pocima))
+				return true;
 		}
+		return false;
 	}
 
 	/**
@@ -134,16 +144,10 @@ public class Mazo {
 		return m;
 	}
 
-	/**
-	 * 
-	 * Dar a una carta la pocima recibida.
-	 */
-	public void addPocima(Pocima pocima) {
-		int num = this.cartas.size();
-		boolean ok = false;
-		while (!ok) {
-			int i = (int) (num * Math.random());
-			ok = cartas.get(i).setPocima(pocima);
+	public void mostrarCartas() {
+		for (int i = 0; i < cartas.size(); i++) {
+			Carta c = cartas.get(i);
+			System.out.println(c);
 		}
 	}
 }

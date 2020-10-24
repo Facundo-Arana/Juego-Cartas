@@ -11,11 +11,11 @@ public class PocimaDebilitadora extends Pocima {
 	}
 
 	@Override
-	public void aplicar(Atributo attr) {
+	public int aplicar(Atributo attr) {
 		int valor = attr.getValor();
 		int porcentajeDecremento = (int) ((valor * this.decremento) / 100);		
 		int nuevoValor = valor - porcentajeDecremento;
 		
-		attr.setValor(nuevoValor);
+		return nuevoValor;
 	}
 }

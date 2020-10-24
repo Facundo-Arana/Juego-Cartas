@@ -14,9 +14,9 @@ public class PocimaCocktail extends Pocima {
 	}
 	
 	@Override
-	public void aplicar(Atributo attr) {
-		this.primerIngrediente.aplicar(attr);
-		this.segundoIngrediente.aplicar(attr);
+	public int aplicar(Atributo attr) {	
+		attr.setValor(this.primerIngrediente.aplicar(attr)); 	
+		return this.segundoIngrediente.aplicar(attr);
 	}
 
 }

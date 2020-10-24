@@ -14,9 +14,16 @@ public class PocimaSelectiva extends Pocima {
 	}
 
 	@Override
-	public void aplicar(Atributo attr) {
-		if(attr.getNombre().equals(atributoAfectado))
-			this.pocima.aplicar(attr);
+	public int aplicar(Atributo attr) {
+		if(attr.getNombre().equals(atributoAfectado)) 
+			return pocima.aplicar(attr);
+		
+		return attr.getValor();
+	}
+	
+	@Override
+	public String toString() {
+		return this.getNombre() + " de " + this.atributoAfectado;
 	}
 
 }

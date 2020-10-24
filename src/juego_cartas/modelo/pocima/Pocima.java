@@ -18,6 +18,6 @@ public abstract class Pocima {
 		return this.getNombre();
 	}
 	
-	public abstract void aplicar(Atributo attr);
+	public abstract int aplicar(Atributo attr);
 
 }

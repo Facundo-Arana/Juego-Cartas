@@ -1,7 +1,6 @@
 package juego_cartas.modelo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import juego_cartas.modelo.pocima.Pocima;
 
@@ -36,6 +35,10 @@ public class Carta {
 		return false;
 	}
 
+	public String getNombrePocima() {
+		return this.pocima.toString();
+	}
+
 	public void setAtributo(String nombre, int valor) {
 		Atributo nuevo = new Atributo(nombre, valor);
 		atributos.add(nuevo);
@@ -57,8 +60,13 @@ public class Carta {
 	 */
 	public int getValorAtributo(String attr) {
 		for (int i = 0; i < atributos.size(); i++) {
-			if (atributos.get(i).getNombre().equals(attr))
-				return atributos.get(i).getValor();
+			if (atributos.get(i).getNombre().equals(attr)) {
+				if (this.tienePocima()) 
+					return this.pocima.aplicar(atributos.get(i));		
+				
+				else
+					return atributos.get(i).getValor();
+			}
 		}
 		return 0;
 	}
@@ -71,7 +79,7 @@ public class Carta {
 		if (!this.equals(otra))
 			if (this.contieneLosMismosAtributos(otra))
 				if (otra.contieneLosMismosAtributos(this))
-					return true;	
+					return true;
 		return false;
 	}
 
@@ -80,7 +88,7 @@ public class Carta {
 	 * Compara dos cartas para saber si comparten los mismos atributos.
 	 */
 	public boolean contieneLosMismosAtributos(Carta otra) {
-		for (Atributo atributo : this.atributos) 
+		for (Atributo atributo : this.atributos)
 			if (!otra.contieneAtributo(atributo))
 				return false;
 		return true;
@@ -118,7 +126,17 @@ public class Carta {
 	 * Muestra los atributos de la carta.
 	 */
 	public void mostrarAtributos() {
-		for (Atributo atributo : this.atributos) 
+		for (Atributo atributo : this.atributos)
 			System.out.println(atributo);
+	}
+
+	public int getValorAtributoSinPocima(String attr) {
+		for (int i = 0; i < atributos.size(); i++) {
+			if (atributos.get(i).getNombre().equals(attr)) {
+				
+				return atributos.get(i).getValor();
+			}
+		}
+			return 0;
 	}
 }
