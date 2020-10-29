@@ -7,6 +7,8 @@ public class PocimaDebilitadora extends Pocima {
 
 	public PocimaDebilitadora(String nombre, int decremento) {
 		super(nombre);
+		if(decremento>99)
+			this.decremento=99;
 		this.decremento = decremento;
 	}
 

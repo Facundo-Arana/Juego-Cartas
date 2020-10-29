@@ -1,5 +1,8 @@
 package juego_cartas.principal;
 
+import juego_cartas.estrategia.Estrategia;
+import juego_cartas.estrategia.Estrategia_Ambicioso;
+import juego_cartas.estrategia.Estrategia_Obstinado;
 import juego_cartas.modelo.Carta;
 import juego_cartas.modelo.Juego;
 import juego_cartas.modelo.Jugador;
@@ -18,9 +21,11 @@ public class Main {
 		mazo = Mazo.cargarMazo("./superheroes.json");
 		Jugador j1 = new Jugador("Facundo");
 		Jugador j2 = new Jugador("Gabriel");
-
-		PocimaFortalecedora p1 = new PocimaFortalecedora("foralecedora", 100);
-		PocimaDebilitadora p2 = new PocimaDebilitadora("debilitadora", 100);
+		Estrategia est = new Estrategia_Ambicioso();
+		j2.setEstrategia(est);
+		
+		PocimaFortalecedora p1 = new PocimaFortalecedora("fortalecedora", 50);
+		PocimaDebilitadora p2 = new PocimaDebilitadora("debilitadora", 50);
 		PocimaCocktail p3 = new PocimaCocktail("cocktail", p1, p2);
 		PocimaSelectiva p4 = new PocimaSelectiva("selectiva", "fuerza", p1);
 	
@@ -39,7 +44,7 @@ public class Main {
 			String info = "";
 
 			// El jugador ganador de la ultima ronda elije el atributo.
-			String attr = iniciaRonda.seleccionarAtributoRandom();
+			String attr = iniciaRonda.seleccionarAtributo();
 
 			// LOS DOS JUGADORES SUELTAN SU CARTA.
 			Carta cartaJ1 = j1.soltarCarta();

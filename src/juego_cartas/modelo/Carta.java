@@ -44,6 +44,9 @@ public class Carta {
 		atributos.add(nuevo);
 	}
 
+	// --------------------------------------------------//
+	// Estrategias
+
 	/**
 	 * 
 	 * @return el nombre de un atributo aleatorio.
@@ -55,15 +58,42 @@ public class Carta {
 
 	/**
 	 * 
+	 * @return el nombre del atributo con mayor valor
+	 */
+	public String getAtributoMayor() {
+		String attrMayor = "";
+		int valorMayor = -1;
+
+		for (Atributo elem : atributos) {
+			int aux = -1;
+			if (this.tienePocima()) {
+				aux = this.pocima.aplicar(elem);
+			}else {
+				aux = elem.getValor();
+			}
+			
+			if (aux > valorMayor) {
+				attrMayor = elem.getNombre();
+				valorMayor = aux;
+			}
+		}
+		
+		return attrMayor;
+	}
+
+	// ----------------------------------------------------//
+
+	/**
+	 * 
 	 * @param attr es el nombre del atributo.
 	 * @return el valor del atributo dado.
 	 */
 	public int getValorAtributo(String attr) {
 		for (int i = 0; i < atributos.size(); i++) {
 			if (atributos.get(i).getNombre().equals(attr)) {
-				if (this.tienePocima()) 
-					return this.pocima.aplicar(atributos.get(i));		
-				
+				if (this.tienePocima())
+					return this.pocima.aplicar(atributos.get(i));
+
 				else
 					return atributos.get(i).getValor();
 			}
@@ -133,10 +163,10 @@ public class Carta {
 	public int getValorAtributoSinPocima(String attr) {
 		for (int i = 0; i < atributos.size(); i++) {
 			if (atributos.get(i).getNombre().equals(attr)) {
-				
 				return atributos.get(i).getValor();
 			}
 		}
-			return 0;
+		return 0;
 	}
+
 }

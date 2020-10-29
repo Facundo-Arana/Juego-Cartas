@@ -40,7 +40,7 @@ public class Mazo {
 		if ((this.size() == 0))
 			return true;
 
-		if (this.getPrimeraCarta().perteneAlMismoMazo(c))
+		if (this.getUltimaCarta().perteneAlMismoMazo(c))
 			return true;
 
 		return false;
@@ -69,8 +69,8 @@ public class Mazo {
 	 * 
 	 * @return la primera carta.
 	 */
-	public Carta getPrimeraCarta() {
-		return cartas.get(0);
+	public Carta getUltimaCarta() {
+		return cartas.get(size()-1);
 	}
 
 	/**

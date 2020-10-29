@@ -3,27 +3,36 @@ package juego_cartas.modelo;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import juego_cartas.estrategia.Estrategia;
+import juego_cartas.estrategia.Estrategia_Timbero;
+
 public class Jugador {
 
 	private String nombre;
-	private Mazo cartas;
+	private Mazo mazoJugador;
+	private Estrategia estrategia;
 	
 
 	public Jugador(String nombre) {
 		this.nombre = nombre;
-		cartas = new Mazo();
+		mazoJugador = new Mazo();
+		this.estrategia = new Estrategia_Timbero(); 
 	}
-	
+
+	public void setEstrategia(Estrategia estrategia) {
+		this.estrategia = estrategia;
+	}
+
 	public int totalCartas() {
-		return cartas.size();
+		return mazoJugador.size();
 	}
 
 	public Carta soltarCarta() {
-		return this.cartas.pop();
+		return this.mazoJugador.pop();
 	}
 
 	public void tomarCarta(Carta c) {
-		this.cartas.push(c);
+		this.mazoJugador.push(c);
 	}
 
 	public String getNombre() {
@@ -31,15 +40,15 @@ public class Jugador {
 	}
 
 	public void mostrarCartas() {
-		this.cartas.mostrarCartas();
+		this.mazoJugador.mostrarCartas();
 	}
 
 	public boolean tieneCartas() {
-		return cartas.size() > 0;
+		return mazoJugador.size() > 0;
 	}
-
-	public String seleccionarAtributoRandom() {
-		return cartas.getPrimeraCarta().getAtributoRandom();
+	
+	public String seleccionarAtributo() {
+		return this.estrategia.implementarEstrategia(mazoJugador.getUltimaCarta());
 	}
 
 	@Override
