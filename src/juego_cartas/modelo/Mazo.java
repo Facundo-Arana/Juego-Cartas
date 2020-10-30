@@ -12,7 +12,7 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
-import juego_cartas.modelo.pocima.Pocima;
+import juego_cartas.pocima.Pocima;
 
 public class Mazo {
 
@@ -83,7 +83,7 @@ public class Mazo {
 
 	/**
 	 * 
-	 * Mezcla las cartas (idealmente antes de ser repartidas).
+	 * Mezcla las cartas.
 	 */
 	public void mezclarCartas() {
 		Collections.shuffle(cartas);

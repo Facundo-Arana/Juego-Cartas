@@ -2,7 +2,7 @@ package juego_cartas.modelo;
 
 import java.util.ArrayList;
 
-import juego_cartas.modelo.pocima.Pocima;
+import juego_cartas.pocima.Pocima;
 
 public class Juego {
 
@@ -113,27 +113,4 @@ public class Juego {
 		return copia;
 	}
 
-	/**
-	 * 
-	 * Informa el numero de ronda Informa el atributo por el que los jugadores van a
-	 * competir y que jugador lo eligio. Informa la cartas jugadas.
-	 */
-	public String informacionInicial(int i, Jugador ini, Carta c1, Carta c2, String attr, Jugador j1, Jugador j2) {
-		String info = "";
-		info += "------- Ronda " + i + " -------" + "\n";
-		info += "El jugador " + ini + " selecciona competir por atributo " + attr + "\n";
-		info += j1 + " jugo la carta " + c1 + " con " + c1.getValorAtributoSinPocima(attr);
-		if(c1.tienePocima())
-			info += ", se aplico pócima " + c1.getNombrePocima() + " valor resultante " + c1.getValorAtributo(attr);
-		info += "\n";
-		info += j2 + " jugo la carta " + c2 + " con " + c2.getValorAtributoSinPocima(attr);
-		if(c2.tienePocima())
-			info += ", se aplico pócima " + c2.getNombrePocima() + " valor resultante " + c2.getValorAtributo(attr);
-		info += "\n";
-		return info;
-	}
-
-	public String informacionFinal(Jugador j1, Jugador j2) {
-		return j1 + " tiene: " + j1.totalCartas() + " cartas y " + j2 + " tiene: " + j2.totalCartas() + "\n";
-	}
 }

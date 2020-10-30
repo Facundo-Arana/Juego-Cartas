@@ -2,7 +2,7 @@ package juego_cartas.modelo;
 
 import java.util.ArrayList;
 
-import juego_cartas.modelo.pocima.Pocima;
+import juego_cartas.pocima.Pocima;
 
 public class Carta {
 
@@ -10,17 +10,9 @@ public class Carta {
 	private Pocima pocima;
 	private ArrayList<Atributo> atributos;
 
-	public Carta() {
-		this("auxiliar");
-	}
-
 	public Carta(String nombre) {
 		this.nombre = nombre;
 		this.atributos = new ArrayList<>();
-	}
-
-	public String getNombre() {
-		return this.nombre;
 	}
 
 	public boolean tienePocima() {
@@ -33,10 +25,6 @@ public class Carta {
 			return true;
 		}
 		return false;
-	}
-
-	public String getNombrePocima() {
-		return this.pocima.toString();
 	}
 
 	public void setAtributo(String nombre, int valor) {
@@ -58,52 +46,54 @@ public class Carta {
 
 	/**
 	 * 
-	 * @return el nombre del atributo con mayor valor
+	 * @return el nombre del atributo con mayor valor.
 	 */
 	public String getAtributoMayor() {
 		String attrMayor = "";
 		int valorMayor = -1;
 
-		for (Atributo elem : atributos) {
+		for (Atributo atributo : atributos) {
 			int aux = -1;
 			if (this.tienePocima()) {
-				aux = this.pocima.aplicar(elem);
-			}else {
-				aux = elem.getValor();
+				aux = atributo.getValor(pocima);
+			} else {
+				aux = atributo.getValor();
 			}
-			
+
 			if (aux > valorMayor) {
-				attrMayor = elem.getNombre();
+				attrMayor = atributo.getNombre();
 				valorMayor = aux;
 			}
 		}
-		
+
 		return attrMayor;
 	}
-
-	// ----------------------------------------------------//
 
 	/**
 	 * 
 	 * @param attr es el nombre del atributo.
-	 * @return el valor del atributo dado.
+	 * @return el valor del atributo dado, puede ser alterado por una pocima.
 	 */
 	public int getValorAtributo(String attr) {
-		for (int i = 0; i < atributos.size(); i++) {
-			if (atributos.get(i).getNombre().equals(attr)) {
+		for (Atributo atributo : this.atributos) {
+
+			if (atributo.getNombre().equals(attr)) {
+
 				if (this.tienePocima())
-					return this.pocima.aplicar(atributos.get(i));
+					return atributo.getValor(pocima);
 
 				else
-					return atributos.get(i).getValor();
+					return atributo.getValor();
 			}
 		}
 		return 0;
 	}
 
+	///// ------------------- metodos comparativos ------------------//////////
+
 	/**
-	 * 
-	 * Compara dos cartas para saber si pertenecen al mismo mazo.
+	 * Compara dos cartas para saber si pertenecen al mismo mazo. Tienen que tener
+	 * nombre distintos y compartir todos los atributos.
 	 */
 	public boolean perteneAlMismoMazo(Carta otra) {
 		if (!this.equals(otra))
@@ -114,7 +104,6 @@ public class Carta {
 	}
 
 	/**
-	 * 
 	 * Compara dos cartas para saber si comparten los mismos atributos.
 	 */
 	public boolean contieneLosMismosAtributos(Carta otra) {
@@ -125,7 +114,6 @@ public class Carta {
 	}
 
 	/**
-	 * 
 	 * @return si existe un atributo igual al atributo dado.
 	 */
 	public boolean contieneAtributo(Atributo atributo) {
@@ -136,36 +124,36 @@ public class Carta {
 	public boolean equals(Object o) {
 		try {
 			Carta otra = (Carta) o;
-			if (this.getNombre().equals(otra.getNombre()))
-				return true;
-			else
-				return false;
+			return this.getNombre().equals(otra.getNombre());
 
 		} catch (Exception e) {
 			return false;
 		}
 	}
 
+	///// --------------- metodos informativos -------------///////////
 	@Override
 	public String toString() {
 		return nombre;
 	}
 
-	/**
-	 * 
-	 * Muestra los atributos de la carta.
-	 */
+	public String getNombre() {
+		return this.nombre;
+	}
+
+	public String getNombrePocima() {
+		return this.pocima.toString();
+	}
+
 	public void mostrarAtributos() {
 		for (Atributo atributo : this.atributos)
 			System.out.println(atributo);
 	}
 
 	public int getValorAtributoSinPocima(String attr) {
-		for (int i = 0; i < atributos.size(); i++) {
-			if (atributos.get(i).getNombre().equals(attr)) {
-				return atributos.get(i).getValor();
-			}
-		}
+		for (Atributo atributo : this.atributos)
+			if (atributo.getNombre().equals(attr))
+				return atributo.getValor();
 		return 0;
 	}
 

@@ -1,4 +1,4 @@
-package juego_cartas.modelo.pocima;
+package juego_cartas.pocima;
 
 import juego_cartas.modelo.Atributo;
 
@@ -7,8 +7,8 @@ public class PocimaDebilitadora extends Pocima {
 
 	public PocimaDebilitadora(String nombre, int decremento) {
 		super(nombre);
-		if(decremento>99)
-			this.decremento=99;
+		if(decremento>100)
+			this.decremento=100;
 		this.decremento = decremento;
 	}
 

@@ -1,5 +1,7 @@
 package juego_cartas.modelo;
 
+import juego_cartas.pocima.Pocima;
+
 public class Atributo implements Comparable<Atributo> {
 
 	private String nombre;
@@ -10,23 +12,24 @@ public class Atributo implements Comparable<Atributo> {
 		this.valor = valor;
 	}
 
-	public String getNombre() {
-		return this.nombre;
-	}
-
 	public int getValor() {
 		return this.valor;
 	}
 
-	public void setValor(int valor) {
-		this.valor = valor;
+	public int getValor(Pocima pocima) {
+		return pocima.aplicar(this);
+	}
+
+	@Override
+	public int compareTo(Atributo otro) {
+		return this.getValor() - otro.getValor();
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		try {
 			Atributo otro = (Atributo) o;
-			
+
 			if (this.getNombre().equals(otro.getNombre()))
 				return true;
 			else
@@ -39,14 +42,10 @@ public class Atributo implements Comparable<Atributo> {
 
 	@Override
 	public String toString() {
-		return nombre + " " + valor;// "\n Atributo [nombre=" + nombre + " valor=" + valor + "]";
+		return nombre + " " + valor;
 	}
 
-	@Override
-	public int compareTo(Atributo otro) {
-		return this.getValor() - otro.getValor();
+	public String getNombre() {
+		return this.nombre;
 	}
-	
-	
-
 }

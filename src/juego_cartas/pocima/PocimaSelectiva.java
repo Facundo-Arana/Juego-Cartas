@@ -1,4 +1,4 @@
-package juego_cartas.modelo.pocima;
+package juego_cartas.pocima;
 
 import juego_cartas.modelo.Atributo;
 

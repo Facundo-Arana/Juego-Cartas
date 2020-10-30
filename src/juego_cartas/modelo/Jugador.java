@@ -11,12 +11,11 @@ public class Jugador {
 	private String nombre;
 	private Mazo mazoJugador;
 	private Estrategia estrategia;
-	
 
 	public Jugador(String nombre) {
 		this.nombre = nombre;
 		mazoJugador = new Mazo();
-		this.estrategia = new Estrategia_Timbero(); 
+		this.estrategia = new Estrategia_Timbero();
 	}
 
 	public void setEstrategia(Estrategia estrategia) {
@@ -35,29 +34,35 @@ public class Jugador {
 		this.mazoJugador.push(c);
 	}
 
-	public String getNombre() {
-		return this.nombre;
-	}
-
-	public void mostrarCartas() {
-		this.mazoJugador.mostrarCartas();
-	}
-
 	public boolean tieneCartas() {
 		return mazoJugador.size() > 0;
 	}
-	
+
 	public String seleccionarAtributo() {
 		return this.estrategia.implementarEstrategia(mazoJugador.getUltimaCarta());
 	}
+	
+	/////------------------ metodos informativos ---------------////////////
 
 	@Override
 	public String toString() {
 		return nombre;
 	}
 
+	public String getNombre() {
+		return this.nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void mostrarCartas() {
+		this.mazoJugador.mostrarCartas();
+	}
+
 	/*
-	 * Setear nombre de Jugadores.
+	 * Setear nombre de Jugador.
 	 */
 	public void crearNombre() {
 		BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
@@ -73,7 +78,4 @@ public class Jugador {
 		this.setNombre(nombre);
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
 }

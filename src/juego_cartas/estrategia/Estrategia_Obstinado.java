@@ -1,6 +1,5 @@
 package juego_cartas.estrategia;
 
-import juego_cartas.modelo.Atributo;
 import juego_cartas.modelo.Carta;
 
 public class Estrategia_Obstinado extends Estrategia {
