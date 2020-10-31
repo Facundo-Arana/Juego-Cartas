@@ -15,25 +15,41 @@ public class Carta {
 		this.atributos = new ArrayList<>();
 	}
 
-	public boolean tienePocima() {
-		return this.pocima != null;
+	public String getNombre() {
+		return this.nombre;
 	}
-
-	public boolean setPocima(Pocima pocima) {
-		if (!this.tienePocima()) {
-			this.pocima = pocima;
-			return true;
-		}
-		return false;
-	}
-
+	
 	public void setAtributo(String nombre, int valor) {
 		Atributo nuevo = new Atributo(nombre, valor);
 		atributos.add(nuevo);
 	}
+	
+	/**
+	 * 
+	 * @param attr es el nombre del atributo.
+	 * @return el valor del atributo dado, puede ser alterado por una pocima.
+	 */
+	public int getValorAtributo(String attr) {
+		for (Atributo atributo : this.atributos) {
+			
+			if (atributo.getNombre().equals(attr)) {
+				
+				if (this.tienePocima())
+					return atributo.getValor(pocima);
+				
+				else
+					return atributo.getValor();
+			}
+		}
+		return 0;
+	}
+	
+	public void mostrarAtributos() {
+		for (Atributo atributo : this.atributos)
+			System.out.println(atributo);
+	}	
 
-	// --------------------------------------------------//
-	// Estrategias
+	// ---------------------- Estrategias ---------------------------//
 
 	/**
 	 * 
@@ -69,25 +85,6 @@ public class Carta {
 		return attrMayor;
 	}
 
-	/**
-	 * 
-	 * @param attr es el nombre del atributo.
-	 * @return el valor del atributo dado, puede ser alterado por una pocima.
-	 */
-	public int getValorAtributo(String attr) {
-		for (Atributo atributo : this.atributos) {
-
-			if (atributo.getNombre().equals(attr)) {
-
-				if (this.tienePocima())
-					return atributo.getValor(pocima);
-
-				else
-					return atributo.getValor();
-			}
-		}
-		return 0;
-	}
 
 	///// ------------------- metodos comparativos ------------------//////////
 
@@ -120,6 +117,37 @@ public class Carta {
 		return atributos.contains(atributo);
 	}
 
+	//-------------------- Pocimas -------------------//
+	
+	public boolean tienePocima() {
+		return this.pocima != null;
+	}
+
+	public boolean setPocima(Pocima pocima) {
+		if (!this.tienePocima()) {
+			this.pocima = pocima;
+			return true;
+		}
+		return false;
+	}
+	
+	public String getNombrePocima() {
+		return this.pocima.toString();
+	}
+	
+	public int getValorAtributoSinPocima(String attr) {
+		for (Atributo atributo : this.atributos)
+			if (atributo.getNombre().equals(attr))
+				return atributo.getValor();
+		return 0;
+	}
+	
+	
+	///// --------------- metodos informativos -------------///////////
+	@Override
+	public String toString() {
+		return nombre;
+	}
 	@Override
 	public boolean equals(Object o) {
 		try {
@@ -129,32 +157,6 @@ public class Carta {
 		} catch (Exception e) {
 			return false;
 		}
-	}
-
-	///// --------------- metodos informativos -------------///////////
-	@Override
-	public String toString() {
-		return nombre;
-	}
-
-	public String getNombre() {
-		return this.nombre;
-	}
-
-	public String getNombrePocima() {
-		return this.pocima.toString();
-	}
-
-	public void mostrarAtributos() {
-		for (Atributo atributo : this.atributos)
-			System.out.println(atributo);
-	}
-
-	public int getValorAtributoSinPocima(String attr) {
-		for (Atributo atributo : this.atributos)
-			if (atributo.getNombre().equals(attr))
-				return atributo.getValor();
-		return 0;
 	}
 
 }

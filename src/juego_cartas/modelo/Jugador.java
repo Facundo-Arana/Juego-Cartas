@@ -44,11 +44,7 @@ public class Jugador {
 	
 	/////------------------ metodos informativos ---------------////////////
 
-	@Override
-	public String toString() {
-		return nombre;
-	}
-
+	
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -61,6 +57,12 @@ public class Jugador {
 		this.mazoJugador.mostrarCartas();
 	}
 
+	@Override
+	public String toString() {
+		return nombre;
+	}
+
+	
 	/*
 	 * Setear nombre de Jugador.
 	 */

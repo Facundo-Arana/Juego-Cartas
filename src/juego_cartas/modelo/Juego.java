@@ -14,10 +14,6 @@ public class Juego {
 		this.pocimas = new ArrayList<>();
 	}
 
-	public void addPocima(Pocima pocima) {
-		this.pocimas.add(pocima);
-	}
-
 	public int getMaxJugadas() {
 		return this.maxJugadas;
 	}
@@ -80,6 +76,12 @@ public class Juego {
 			else
 				j2.tomarCarta(mazo.pop());
 		}
+	}
+	
+	//-----------------------Pocimas------------------------------------//
+	
+	public void addPocima(Pocima pocima) {
+		this.pocimas.add(pocima);
 	}
 
 	/**
