@@ -9,6 +9,7 @@ import juego_cartas.modelo.Mazo;
 import juego_cartas.pocima.PocimaCocktail;
 import juego_cartas.pocima.PocimaDebilitadora;
 import juego_cartas.pocima.PocimaFortalecedora;
+import juego_cartas.pocima.PocimaNumeroMagico;
 import juego_cartas.pocima.PocimaSelectiva;
 
 public class Main {
@@ -40,13 +41,18 @@ public class Main {
 
 		PocimaSelectiva elixirFuerza = new PocimaSelectiva("elixirFuerza", "fuerza", mana);
 		PocimaSelectiva redBull = new PocimaSelectiva("redBull", "velocidad", espinaca);
-
+		PocimaSelectiva danonino = new PocimaSelectiva("danonino", "altura", espinaca);
+		
 		PocimaSelectiva laDelDiego = new PocimaSelectiva("laDelDiego", "peleas ganadas", sumum);
 		PocimaSelectiva sopaDeCaracol = new PocimaSelectiva("sopaDeCaracol", "velocidad", manaos);
 
 		PocimaCocktail naranpol = new PocimaCocktail("naranpol", mana, kriptonita);
 		PocimaCocktail dobleFilo = new PocimaCocktail("dobleFilo", sopaDeCaracol, laDelDiego);
 
+		PocimaNumeroMagico laNota = new PocimaNumeroMagico("nota-tp", 10);
+		PocimaNumeroMagico dolar = new PocimaNumeroMagico("dolar-Value", 78);
+		
+		
 		juego.addPocima(mana);
 		juego.addPocima(espinaca);
 		juego.addPocima(kriptonita);
@@ -55,7 +61,9 @@ public class Main {
 		juego.addPocima(redBull);
 		juego.addPocima(naranpol);
 		juego.addPocima(dobleFilo);
-
+		juego.addPocima(laNota);
+		juego.addPocima(dolar);
+		juego.addPocima(danonino);
 		// se reparten las cartas luego de haber incoporado las pocimas
 		juego.repartirCartas(j1, j2, mazo);
 
