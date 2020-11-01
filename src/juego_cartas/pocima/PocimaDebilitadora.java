@@ -7,8 +7,8 @@ public class PocimaDebilitadora extends Pocima {
 
 	public PocimaDebilitadora(String nombre, int decremento) {
 		super(nombre);
-		if(decremento>100)
-			this.decremento=100;
+		if(decremento > 100)
+			this.decremento = 100;
 		this.decremento = decremento;
 	}
 
@@ -16,8 +16,7 @@ public class PocimaDebilitadora extends Pocima {
 	public int aplicar(Atributo attr) {
 		int valor = attr.getValor();
 		int porcentajeDecremento = (int) ((valor * this.decremento) / 100);		
-		int nuevoValor = valor - porcentajeDecremento;
-		
+		int nuevoValor = valor - porcentajeDecremento;	
 		return nuevoValor;
 	}
 }

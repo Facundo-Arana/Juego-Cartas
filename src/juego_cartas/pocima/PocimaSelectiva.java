@@ -20,10 +20,5 @@ public class PocimaSelectiva extends Pocima {
 		
 		return attr.getValor();
 	}
-	
-	@Override
-	public String toString() {
-		return this.getNombre() + " de " + this.atributoAfectado;
-	}
 
 }

@@ -115,7 +115,7 @@ public class Mazo {
 		InputStream is;
 
 		// se hace un nuevo mazo vacio.
-		Mazo m = new Mazo();
+		Mazo mazoNuevo = new Mazo();
 		try {
 			is = new FileInputStream(jsonInputFile);
 			JsonReader reader = Json.createReader(is);
@@ -123,7 +123,7 @@ public class Mazo {
 			for (JsonObject carta : cartas.getValuesAs(JsonObject.class)) {
 				String nombreCarta = carta.getString("nombre");
 				JsonObject atributos = (JsonObject) carta.getJsonObject("atributos");
-
+				
 				// se hace una nueva carta vacia.
 				Carta cartaNueva = new Carta(nombreCarta);
 
@@ -133,7 +133,7 @@ public class Mazo {
 				}
 
 				// se añade al mazo (solo si pasa la verificacion).
-				m.setCarta(cartaNueva);
+				mazoNuevo.setCarta(cartaNueva);
 			}
 			reader.close();
 		} catch (FileNotFoundException e) {
@@ -141,7 +141,7 @@ public class Mazo {
 		}
 
 		// retorna el mazo ya cargado.
-		return m;
+		return mazoNuevo;
 	}
 
 	public void mostrarCartas() {

@@ -111,7 +111,7 @@ public class Carta {
 	}
 
 	/**
-	 * @return si existe un atributo igual al atributo dado.
+	 * @return true si existe un atributo igual al atributo dado.
 	 */
 	public boolean contieneAtributo(Atributo atributo) {
 		return atributos.contains(atributo);
