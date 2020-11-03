@@ -1,7 +1,5 @@
 package juego_cartas.pocima;
 
-import juego_cartas.modelo.Atributo;
-
 public abstract class Pocima {
 	
 	private String nombre;
@@ -18,6 +16,6 @@ public abstract class Pocima {
 		return this.getNombre();
 	}
 	
-	public abstract int aplicar(Atributo attr);
+	public abstract int aplicar(int valor, String nombre);
 
 }

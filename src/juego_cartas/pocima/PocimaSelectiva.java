@@ -1,12 +1,10 @@
 package juego_cartas.pocima;
 
-import juego_cartas.modelo.Atributo;
-
 public class PocimaSelectiva extends Pocima {
 
 	private String atributoAfectado;
 	private Pocima pocima;
-	
+
 	public PocimaSelectiva(String nombre, String atributoAfectado, Pocima pocima) {
 		super(nombre);
 		this.atributoAfectado = atributoAfectado;
@@ -14,11 +12,11 @@ public class PocimaSelectiva extends Pocima {
 	}
 
 	@Override
-	public int aplicar(Atributo attr) {
-		if(attr.getNombre().equals(atributoAfectado)) 
-			return pocima.aplicar(attr);
-		
-		return attr.getValor();
+	public int aplicar(int valor, String nombre) {
+		if (nombre.equals(atributoAfectado))
+			return pocima.aplicar(valor, nombre);
+
+		return valor;
 	}
 
 }

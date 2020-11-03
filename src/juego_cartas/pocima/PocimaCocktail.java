@@ -1,7 +1,5 @@
 package juego_cartas.pocima;
 
-import juego_cartas.modelo.Atributo;
-
 public class PocimaCocktail extends Pocima {
 
 	private Pocima primerPocima;
@@ -14,10 +12,9 @@ public class PocimaCocktail extends Pocima {
 	}
 
 	@Override
-	public int aplicar(Atributo attr) {
-		int valor = attr.getValor(primerPocima);
-		Atributo aux = new Atributo(attr.getNombre(), valor);
-		return aux.getValor(segundaPocima);
+	public int aplicar(int valor, String nombre) {
+		int valorIntermedio = primerPocima.aplicar(valor, nombre);
+		return segundaPocima.aplicar(valorIntermedio, nombre);
 	}
 
 }

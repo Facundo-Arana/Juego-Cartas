@@ -1,6 +1,5 @@
 package juego_cartas.principal;
 
-import juego_cartas.estrategia.Estrategia;
 import juego_cartas.estrategia.Estrategia_Ambicioso;
 import juego_cartas.modelo.Carta;
 import juego_cartas.modelo.Juego;
@@ -20,14 +19,14 @@ public class Main {
 
 		// se crea a mazo y se cargan las cartas desde el archivo .json
 		Mazo mazo = new Mazo();
-		mazo = Mazo.cargarMazo("./superheroes.json");
+		mazo = Mazo.cargarMazo("./autos.json");
 
 		// se crean los jugadores definiendo sus nombre en el constructor
 		Jugador j1 = new Jugador("Facundo");
 		Jugador j2 = new Jugador("Gabriel");
 
 		// se puede añadir una estrategia a cada jugador (por defecto es timbero)
-		Estrategia est = new Estrategia_Ambicioso();
+		Estrategia_Ambicioso est = new Estrategia_Ambicioso();
 		j2.setEstrategia(est);
 
 		// se pueden añadir pocimas al juego que alteran los valores de las cartas

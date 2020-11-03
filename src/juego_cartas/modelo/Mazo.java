@@ -67,10 +67,11 @@ public class Mazo {
 
 	/**
 	 * 
-	 * @return la primera carta.
+	 * @return la ultima carta.
 	 */
 	public Carta getUltimaCarta() {
-		return cartas.get(size()-1);
+		Carta copia = cartas.get(size() - 1).getCopia();
+		return copia;
 	}
 
 	/**
@@ -123,7 +124,7 @@ public class Mazo {
 			for (JsonObject carta : cartas.getValuesAs(JsonObject.class)) {
 				String nombreCarta = carta.getString("nombre");
 				JsonObject atributos = (JsonObject) carta.getJsonObject("atributos");
-				
+
 				// se hace una nueva carta vacia.
 				Carta cartaNueva = new Carta(nombreCarta);
 

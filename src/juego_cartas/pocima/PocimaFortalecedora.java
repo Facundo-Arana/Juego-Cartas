@@ -1,7 +1,5 @@
 package juego_cartas.pocima;
 
-import juego_cartas.modelo.Atributo;
-
 public class PocimaFortalecedora extends Pocima {
 
 	private int aumento;
@@ -12,11 +10,9 @@ public class PocimaFortalecedora extends Pocima {
 	}
 
 	@Override
-	public int aplicar(Atributo attr) {
-		int valor = attr.getValor();	
+	public int aplicar(int valor, String nombre) {
 		int porcentajeAumento = (int) Math.floor(valor * this.aumento / 100);	
-		int nuevoValor = valor + porcentajeAumento;	
-		return nuevoValor;	
+		return valor + porcentajeAumento;
 	}
 
 }

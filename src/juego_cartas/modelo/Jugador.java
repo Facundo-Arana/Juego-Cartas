@@ -2,6 +2,7 @@ package juego_cartas.modelo;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import juego_cartas.estrategia.Estrategia;
 import juego_cartas.estrategia.Estrategia_Timbero;
@@ -39,12 +40,19 @@ public class Jugador {
 	}
 
 	public String seleccionarAtributo() {
-		return this.estrategia.implementarEstrategia(mazoJugador.getUltimaCarta());
+		return estrategia.implementarEstrategia(getCarta());
+	}
+
+	public ArrayList<String> getNombresAtributos() {
+		return mazoJugador.getUltimaCarta().getNombresAtributos();
 	}
 	
-	/////------------------ metodos informativos ---------------////////////
+	public Carta getCarta() {
+		return mazoJugador.getUltimaCarta();
+	}
 
-	
+	///// ------------------ metodos informativos ---------------////////////
+
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -62,7 +70,6 @@ public class Jugador {
 		return nombre;
 	}
 
-	
 	/*
 	 * Setear nombre de Jugador.
 	 */

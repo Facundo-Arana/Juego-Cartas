@@ -1,7 +1,5 @@
 package juego_cartas.pocima;
 
-import juego_cartas.modelo.Atributo;
-
 public class PocimaNumeroMagico extends Pocima {
 	private int numeroMagico;
 
@@ -11,7 +9,7 @@ public class PocimaNumeroMagico extends Pocima {
 	}
 
 	@Override
-	public int aplicar(Atributo attr) {
+	public int aplicar(int valor, String nombre) {
 		return this.numeroMagico;
 	}
 

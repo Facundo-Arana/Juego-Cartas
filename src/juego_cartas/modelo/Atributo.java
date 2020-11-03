@@ -1,8 +1,6 @@
 package juego_cartas.modelo;
 
-import juego_cartas.pocima.Pocima;
-
-public class Atributo implements Comparable<Atributo> {
+public class Atributo  {
 
 	private String nombre;
 	private int valor;
@@ -15,14 +13,9 @@ public class Atributo implements Comparable<Atributo> {
 	public int getValor() {
 		return this.valor;
 	}
-
-	public int getValor(Pocima pocima) {
-		return pocima.aplicar(this);
-	}
-
-	@Override
-	public int compareTo(Atributo otro) {
-		return this.getValor() - otro.getValor();
+	
+	public String getNombre() {
+		return this.nombre;
 	}
 
 	@Override
@@ -45,7 +38,4 @@ public class Atributo implements Comparable<Atributo> {
 		return nombre + " " + valor;
 	}
 
-	public String getNombre() {
-		return this.nombre;
-	}
 }
