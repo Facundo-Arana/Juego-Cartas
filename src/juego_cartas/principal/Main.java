@@ -130,25 +130,11 @@ public class Main {
 		String info = "";
 		info += "------- Ronda " + i + " -------" + "\n";
 		info += "El jugador " + ini + " selecciona competir por atributo " + attr + "\n";
-		info += j1 + " jugo la carta " + c1 + " con " + c1.getValorAtributoSinPocima(attr);
-		if (c1.tienePocima()) {
-			info += ", se aplico pócima " + c1.getNombrePocima();
-			if (c1.getValorAtributo(attr) == c1.getValorAtributoSinPocima(attr))
-				info += " (no tuvo efecto)";
-			else
-				info += " valor resultante " + c1.getValorAtributo(attr);
-		}
+		info += c1.infoJugada(j1, c1, attr);
 		info += "\n";
-		info += j2 + " jugo la carta " + c2 + " con " + c2.getValorAtributoSinPocima(attr);
-		if (c2.tienePocima()) {
-			info += ", se aplico pócima " + c2.getNombrePocima();
-			if (c2.getValorAtributo(attr) == c2.getValorAtributoSinPocima(attr))
-				info += " (no tuvo efecto)";
-			else
-				info += " valor resultante " + c2.getValorAtributo(attr);
-		}
+		info += c2.infoJugada(j2, c2, attr);
 		info += "\n";
-		return info;
+		return info;			
 	}
 
 	public static String informacionFinal(Jugador j1, Jugador j2) {

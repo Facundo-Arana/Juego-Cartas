@@ -18,4 +18,5 @@ public abstract class Pocima {
 	
 	public abstract int aplicar(int valor, String nombre);
 
+	
 }

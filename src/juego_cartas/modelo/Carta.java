@@ -24,22 +24,7 @@ public class Carta {
 		atributos.add(nuevo);
 	}
 
-	/**
-	 * 
-	 * @param attr es el nombre del atributo.
-	 * @return el valor del atributo dado, puede ser alterado por una pocima.
-	 */
-	public int getValorAtributo(String attr) {
-		for (Atributo atributo : this.atributos) {
-			if (atributo.getNombre().equals(attr)) {
-				if (this.tienePocima())
-					return pocima.aplicar(atributo.getValor(), atributo.getNombre());
-				else
-					return atributo.getValor();
-			}
-		}
-		return 0;
-	}
+	
 
 	public ArrayList<String> getNombresAtributos(){
 		ArrayList<String> retorno = new ArrayList<>();
@@ -128,12 +113,49 @@ public class Carta {
 		for (Atributo atributo : this.atributos)
 			System.out.println(atributo);
 	}
+	
+	//----------------------------------------------------------//
+	
+	public String infoJugada(Jugador j,Carta carta, String attr) {
+		String info=""; 
 
-	public int getValorAtributoSinPocima(String attr) {
-		for (Atributo atributo : this.atributos)
-			if (atributo.getNombre().equals(attr))
+		info += j + " jugo la carta " + carta + " con " + carta.getValorAtributo(attr);
+		
+		if(tienePocima()) {
+			if (carta.getValorPocimaAplicada(attr) != carta.getValorAtributo(attr))
+				info += ", se aplico pócima " + carta.getNombrePocima();
+				info += " valor resultante " + carta.getValorPocimaAplicada(attr);
+		}
+		return info;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @param attr es el nombre del atributo.
+	 */
+	public int getValorAtributo(String attr) {
+		for (Atributo atributo : this.atributos) {
+			if (atributo.getNombre().equals(attr)) {	
 				return atributo.getValor();
+			}
+		}
 		return 0;
 	}
-
+	
+	/**
+	 * 
+	 * @param attr es el nombre del atributo.
+	 * @return el valor del atributo dado, es alterado por una pocima.
+	 */
+	public int getValorPocimaAplicada(String attr) {
+		for (Atributo atributo : this.atributos) {
+			if (atributo.getNombre().equals(attr)) {
+				return pocima.aplicar(atributo.getValor(), atributo.getNombre());
+			}
+		}
+		return 0;
+	}
+	
 }
