@@ -67,7 +67,7 @@ public class Mazo {
 
 	/**
 	 * 
-	 * @return la ultima carta.
+	 * @return copia de la ultima carta (la proxima en ser jugada).
 	 */
 	public Carta getUltimaCarta() {
 		Carta copia = cartas.get(size() - 1).getCopia();

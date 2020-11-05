@@ -1,6 +1,6 @@
 package juego_cartas.modelo;
 
-public class Atributo  {
+public class Atributo {
 
 	private String nombre;
 	private int valor;
@@ -13,7 +13,7 @@ public class Atributo  {
 	public int getValor() {
 		return this.valor;
 	}
-	
+
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -22,20 +22,11 @@ public class Atributo  {
 	public boolean equals(Object o) {
 		try {
 			Atributo otro = (Atributo) o;
-
-			if (this.getNombre().equals(otro.getNombre()))
-				return true;
-			else
-				return false;
+			return this.getNombre().equals(otro.getNombre());
 
 		} catch (Exception e) {
 			return false;
 		}
-	}
-
-	@Override
-	public String toString() {
-		return nombre + " " + valor;
 	}
 
 }

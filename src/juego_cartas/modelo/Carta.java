@@ -59,6 +59,11 @@ public class Carta {
 		return true;
 	}
 	
+	
+	/**
+	 * 
+	 * @return una copia de la carta.
+	 */
 	public Carta getCopia() {
 		Carta copia = new Carta(this.getNombre());
 		if(this.tienePocima())
@@ -103,7 +108,7 @@ public class Carta {
 	public String infoJugada(Jugador j,Carta carta, String attr) {
 		String info=""; 
 
-		info += j + " jugo la carta " + carta + " con " + carta.getValorAtributo(attr);
+		info += j + " jugo la carta " + carta + " con " + attr + " " + carta.getValorAtributo(attr);
 		
 		if(tienePocima()) 
 			info += pocima.infoJugada(carta.getValorAtributo(attr), attr);
@@ -118,7 +123,6 @@ public class Carta {
 	public int getValorAtributo(String attr) {
 		for (Atributo atributo : this.atributos) {
 			if (atributo.getNombre().equals(attr)) {
-			
 				return atributo.getValor();
 			}
 		}

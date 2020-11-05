@@ -2,7 +2,7 @@ package juego_cartas.estrategia;
 
 import juego_cartas.modelo.Carta;
 
-public class Estrategia_Obstinado extends Estrategia {
+public class Estrategia_Obstinado implements Estrategia {
 
 	private String atributo;
 	

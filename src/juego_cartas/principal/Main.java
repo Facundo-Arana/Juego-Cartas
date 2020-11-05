@@ -13,9 +13,6 @@ import juego_cartas.pocima.PocimaSelectiva;
 public class Main {
 
 	public static void main(String[] args) {
-		// se define el numero de rondas en el constructor del juego
-		Juego juego = new Juego(100);
-
 		// se crea a mazo y se cargan las cartas desde el archivo .json
 		Mazo mazo = new Mazo();
 		mazo = Mazo.cargarMazo("./superheroes.json");
@@ -28,8 +25,6 @@ public class Main {
 		Estrategia_Ambicioso est = new Estrategia_Ambicioso();
 		j2.setEstrategia(est);
 
-		// se pueden añadir pocimas al juego que alteran los valores de las cartas
-		// cada pocima lleva un nombre y un porcentaje
 		PocimaFortalecedora mana = new PocimaFortalecedora("mana", 30);
 		PocimaFortalecedora espinaca = new PocimaFortalecedora("espinaca", 40);
 		PocimaFortalecedora sumum = new PocimaFortalecedora("sumum", 130);
@@ -50,6 +45,9 @@ public class Main {
 		PocimaNumeroMagico laNota = new PocimaNumeroMagico("nota-tp", 10);
 		PocimaNumeroMagico dolar = new PocimaNumeroMagico("dolar-Value", 78);
 
+		// se define el numero de rondas, los jugadores y el mazo en el constructor del
+		// juego
+		Juego juego = new Juego(100, j1, j2, mazo);
 		juego.setPocima(mana);
 		juego.setPocima(espinaca);
 		juego.setPocima(kriptonita);
@@ -62,11 +60,7 @@ public class Main {
 		juego.setPocima(dolar);
 		juego.setPocima(danonino);
 
-		juego.setMazo(mazo);
-		juego.setJ1(j1);
-		juego.setJ2(j2);
-
-		System.out.println(juego.jugar());
+		juego.jugar();
 	}
 
 }

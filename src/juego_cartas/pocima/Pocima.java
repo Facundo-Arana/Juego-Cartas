@@ -23,7 +23,6 @@ public abstract class Pocima {
 		info += ", se aplico pócima " + this.nombre;
 		info += " valor resultante " + this.aplicar(valor, nombre);
 		return info;
-	};
+	}
 
-	
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import juego_cartas.modelo.Carta;
 
-public class Estrategia_Ambicioso extends Estrategia {
+public class Estrategia_Ambicioso implements Estrategia {
 
 	@Override
 	public String implementarEstrategia(Carta carta) {

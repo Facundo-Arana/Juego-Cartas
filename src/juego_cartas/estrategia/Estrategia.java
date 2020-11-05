@@ -2,10 +2,10 @@ package juego_cartas.estrategia;
 
 import juego_cartas.modelo.Carta;
 
-public abstract class Estrategia {
+public interface Estrategia {
 
-	public abstract String implementarEstrategia(Carta carta);
-	
+	String implementarEstrategia(Carta carta);
+
 }
 
 //1. Timbero. Es la estrategia que se utilizó hasta el momento. En cada ronda, el jugador
@@ -16,4 +16,3 @@ public abstract class Estrategia {
 
 //3. Obstinado. El jugador elige siempre el mismo atributo para competir, ronda tras
 //ronda.
-

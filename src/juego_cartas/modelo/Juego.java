@@ -12,21 +12,12 @@ public class Juego {
 	private Jugador j2;
 	private Mazo mazo;
 
-	public Juego(int numeroMaxJugadas) {
+	public Juego(int numeroMaxJugadas, Jugador j1, Jugador j2,Mazo mazo) {
 		this.maxJugadas = numeroMaxJugadas;
-		this.pocimas = new ArrayList<>();
-	}
-
-	public void setJ2(Jugador j2) {
-		this.j2 = j2;
-	}
-
-	public void setJ1(Jugador j1) {
 		this.j1 = j1;
-	}
-
-	public void setMazo(Mazo mazo) {
+		this.j2 = j2;
 		this.mazo = mazo;
+		this.pocimas = new ArrayList<>();
 	}
 
 	public void setPocima(Pocima pocima) {
@@ -35,9 +26,9 @@ public class Juego {
 
 	/**
 	 * 
-	 * @return la informacion de todas la rondas del juego
-.	 */
-	public String jugar() {
+	 * @return la informacion de todas la rondas del juego .
+	 */
+	public void jugar() {
 		// se reparten las cartas luego de haber incoporado las pocimas
 		this.repartirCartas();
 
@@ -45,8 +36,6 @@ public class Juego {
 		int ronda = 1;
 		Jugador ganador = null;
 		Jugador iniciaRonda = j1;
-		
-		// String { info }: recolecta la informacion
 		String info = "";
 
 		// inicia el juego hasta que gane un jugador o se cumpla el total de rondas
@@ -60,11 +49,11 @@ public class Juego {
 			info += "Los jugadores empataron";
 		else
 			info += ganador + " es el ganador de la partida!";
-		
-		return info;
+
+		System.out.println(info);
+//		return info;
 	}
 
-	
 	/**
 	 * 
 	 * @return la informacion de una ronda del juego.
@@ -80,7 +69,7 @@ public class Juego {
 		Carta cartaJ2 = j2.soltarCarta();
 
 		info += informacionInicial(ronda, iniciaRonda, cartaJ1, cartaJ2, attr);
-	
+
 		// se determina el ganador de la ronda
 		int resultado = this.compararAtributos(attr, cartaJ1, cartaJ2);
 
@@ -160,7 +149,7 @@ public class Juego {
 				j2.tomarCarta(mazo.pop());
 		}
 	}
-	
+
 	/**
 	 * 
 	 * Informa el numero de ronda Informa el atributo por el que los jugadores van a
