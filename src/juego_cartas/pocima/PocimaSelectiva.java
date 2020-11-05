@@ -18,14 +18,4 @@ public class PocimaSelectiva extends Pocima {
 		return valor;
 	}
 
-	@Override
-	public String infoJugada(int valor, String nombre) {
-		String info = "";
-		if (nombre.equals(atributoAfectado)) {
-			info += ", se aplico pócima " + this.nombre;
-			info += " valor resultante " + this.aplicar(valor, nombre);
-		}
-		return info;
-	}
-
 }

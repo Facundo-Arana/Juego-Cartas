@@ -18,7 +18,12 @@ public abstract class Pocima {
 	
 	public abstract int aplicar(int valor, String nombre);
 
-	public abstract String infoJugada(int valor, String nombre);
+	public String infoJugada(int valor, String nombre) {
+		String info = "";
+		info += ", se aplico pócima " + this.nombre;
+		info += " valor resultante " + this.aplicar(valor, nombre);
+		return info;
+	};
 
 	
 }

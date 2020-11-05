@@ -94,28 +94,11 @@ public class Carta {
 	}
 
 	///// --------------- metodos informativos -------------///////////
-	@Override
-	public String toString() {
-		return nombre;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		try {
-			Carta otra = (Carta) o;
-			return this.getNombre().equals(otra.getNombre());
-
-		} catch (Exception e) {
-			return false;
-		}
-	}
 	
 	public void mostrarAtributos() {
 		for (Atributo atributo : this.atributos)
 			System.out.println(atributo);
 	}
-	
-	//----------------------------------------------------------//
 	
 	public String infoJugada(Jugador j,Carta carta, String attr) {
 		String info=""; 
@@ -124,12 +107,9 @@ public class Carta {
 		
 		if(tienePocima()) 
 			info += pocima.infoJugada(carta.getValorAtributo(attr), attr);
-
-				
+		
 		return info;
 	}
-	
-	
 	
 	/**
 	 * 
@@ -145,19 +125,19 @@ public class Carta {
 		return 0;
 	}
 	
-	/**
-	 * 
-	 * @param attr es el nombre del atributo.
-	 * @return el valor del atributo dado, es alterado por una pocima.
-	 */
-	public int getValorPocimaAplicada(String attr) {
-		for (Atributo atributo : this.atributos) {
-			if (atributo.getNombre().equals(attr)) {
-				return pocima.aplicar(atributo.getValor(), atributo.getNombre());
-			}
-		}
-		return 0;
+	@Override
+	public String toString() {
+		return nombre;
 	}
 
-	
+	@Override
+	public boolean equals(Object o) {
+		try {
+			Carta otra = (Carta) o;
+			return this.getNombre().equals(otra.getNombre());
+
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

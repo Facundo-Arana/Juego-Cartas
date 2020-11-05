@@ -160,6 +160,26 @@ public class Juego {
 				j2.tomarCarta(mazo.pop());
 		}
 	}
+	
+	/**
+	 * 
+	 * Informa el numero de ronda Informa el atributo por el que los jugadores van a
+	 * competir y que jugador lo eligio. Informa la cartas jugadas.
+	 */
+	public String informacionInicial(int i, Jugador ini, Carta c1, Carta c2, String attr) {
+		String info = "";
+		info += "------- Ronda " + i + " -------" + "\n";
+		info += "El jugador " + ini + " selecciona competir por atributo " + attr + "\n";
+		info += c1.infoJugada(j1, c1, attr);
+		info += "\n";
+		info += c2.infoJugada(j2, c2, attr);
+		info += "\n";
+		return info;
+	}
+
+	public String informacionFinal() {
+		return j1 + " tiene: " + j1.totalCartas() + " cartas y " + j2 + " tiene: " + j2.totalCartas() + "\n \n";
+	}
 
 	/**
 	 * 
@@ -192,23 +212,4 @@ public class Juego {
 		return copia;
 	}
 
-	/**
-	 * 
-	 * Informa el numero de ronda Informa el atributo por el que los jugadores van a
-	 * competir y que jugador lo eligio. Informa la cartas jugadas.
-	 */
-	public String informacionInicial(int i, Jugador ini, Carta c1, Carta c2, String attr) {
-		String info = "";
-		info += "------- Ronda " + i + " -------" + "\n";
-		info += "El jugador " + ini + " selecciona competir por atributo " + attr + "\n";
-		info += c1.infoJugada(j1, c1, attr);
-		info += "\n";
-		info += c2.infoJugada(j2, c2, attr);
-		info += "\n";
-		return info;
-	}
-
-	public String informacionFinal() {
-		return j1 + " tiene: " + j1.totalCartas() + " cartas y " + j2 + " tiene: " + j2.totalCartas() + "\n \n";
-	}
 }

@@ -13,12 +13,4 @@ public class PocimaNumeroMagico extends Pocima {
 		return this.numeroMagico;
 	}
 
-	@Override
-	public String infoJugada(int valor, String nombre) {
-		String info = "";
-		info += ", se aplico pócima " + this.nombre;
-		info += " valor resultante " + this.numeroMagico;
-		return info;
-	}
-
 }
