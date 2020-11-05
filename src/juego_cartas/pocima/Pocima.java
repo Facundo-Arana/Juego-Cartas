@@ -2,7 +2,7 @@ package juego_cartas.pocima;
 
 public abstract class Pocima {
 	
-	private String nombre;
+	protected String nombre;
 	
 	public Pocima(String nombre) {
 		this.nombre = nombre;
@@ -17,6 +17,8 @@ public abstract class Pocima {
 	}
 	
 	public abstract int aplicar(int valor, String nombre);
+
+	public abstract String infoJugada(int valor, String nombre);
 
 	
 }

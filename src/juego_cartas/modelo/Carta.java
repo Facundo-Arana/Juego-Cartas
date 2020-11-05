@@ -10,6 +10,7 @@ public class Carta {
 	private Pocima pocima;
 	private ArrayList<Atributo> atributos;
 
+
 	public Carta(String nombre) {
 		this.nombre = nombre;
 		this.atributos = new ArrayList<>();
@@ -121,11 +122,10 @@ public class Carta {
 
 		info += j + " jugo la carta " + carta + " con " + carta.getValorAtributo(attr);
 		
-		if(tienePocima()) {
-			if (carta.getValorPocimaAplicada(attr) != carta.getValorAtributo(attr))
-				info += ", se aplico pócima " + carta.getNombrePocima();
-				info += " valor resultante " + carta.getValorPocimaAplicada(attr);
-		}
+		if(tienePocima()) 
+			info += pocima.infoJugada(carta.getValorAtributo(attr), attr);
+
+				
 		return info;
 	}
 	
@@ -137,7 +137,8 @@ public class Carta {
 	 */
 	public int getValorAtributo(String attr) {
 		for (Atributo atributo : this.atributos) {
-			if (atributo.getNombre().equals(attr)) {	
+			if (atributo.getNombre().equals(attr)) {
+			
 				return atributo.getValor();
 			}
 		}
@@ -157,5 +158,6 @@ public class Carta {
 		}
 		return 0;
 	}
+
 	
 }

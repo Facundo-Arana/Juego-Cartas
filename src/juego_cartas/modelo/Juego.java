@@ -8,14 +8,97 @@ public class Juego {
 
 	private int maxJugadas;
 	private ArrayList<Pocima> pocimas;
+	private Jugador j1;
+	private Jugador j2;
+	private Mazo mazo;
 
 	public Juego(int numeroMaxJugadas) {
 		this.maxJugadas = numeroMaxJugadas;
 		this.pocimas = new ArrayList<>();
 	}
 
-	public int getMaxJugadas() {
-		return this.maxJugadas;
+	public void setJ2(Jugador j2) {
+		this.j2 = j2;
+	}
+
+	public void setJ1(Jugador j1) {
+		this.j1 = j1;
+	}
+
+	public void setMazo(Mazo mazo) {
+		this.mazo = mazo;
+	}
+
+	public void setPocima(Pocima pocima) {
+		this.pocimas.add(pocima);
+	}
+
+	/**
+	 * 
+	 * @return la informacion de todas la rondas del juego
+.	 */
+	public String jugar() {
+		// se reparten las cartas luego de haber incoporado las pocimas
+		this.repartirCartas();
+
+		// auxiliares
+		int ronda = 1;
+		Jugador ganador = null;
+		Jugador iniciaRonda = j1;
+		
+		// String { info }: recolecta la informacion
+		String info = "";
+
+		// inicia el juego hasta que gane un jugador o se cumpla el total de rondas
+		while ((ganador == null) && (ronda <= this.maxJugadas)) {
+			info += jugarRonda(ronda, iniciaRonda);
+			ganador = this.hayGanador();
+			ronda++;
+		}
+
+		if (ganador == null)
+			info += "Los jugadores empataron";
+		else
+			info += ganador + " es el ganador de la partida!";
+		
+		return info;
+	}
+
+	
+	/**
+	 * 
+	 * @return la informacion de una ronda del juego.
+	 */
+	private String jugarRonda(int ronda, Jugador iniciaRonda) {
+		String info = "";
+
+		// El jugador ganador de la ultima ronda elije el atributo
+		String attr = iniciaRonda.seleccionarAtributo();
+
+		// LOS DOS JUGADORES SUELTAN SU CARTA
+		Carta cartaJ1 = j1.soltarCarta();
+		Carta cartaJ2 = j2.soltarCarta();
+
+		info += informacionInicial(ronda, iniciaRonda, cartaJ1, cartaJ2, attr);
+	
+		// se determina el ganador de la ronda
+		int resultado = this.compararAtributos(attr, cartaJ1, cartaJ2);
+
+		// se dan las cartas al ganador
+		if (resultado == 0) {
+			info += this.empate(cartaJ1, cartaJ2);
+		} else {
+			if (resultado > 0) {
+				info += this.darCartasAlGanador(j1, cartaJ1, cartaJ2);
+				iniciaRonda = j1;
+			}
+			if (resultado < 0) {
+				info += this.darCartasAlGanador(j2, cartaJ1, cartaJ2);
+				iniciaRonda = j2;
+			}
+		}
+		info += this.informacionFinal();
+		return info;
 	}
 
 	/**
@@ -42,17 +125,17 @@ public class Juego {
 	 * 
 	 * Devuelva las cartas a los jugadores (en caso de empate).
 	 */
-	public String empate(Jugador j1, Jugador j2, Carta c1, Carta c2) {
+	public String empate(Carta c1, Carta c2) {
 		j1.tomarCarta(c1);
 		j2.tomarCarta(c2);
-		return "\nempate!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! \n \n" ;
+		return "\nempate!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! \n \n";
 	}
 
 	/**
 	 * 
 	 * Controla que los jugadores tengan cartas para jugar.
 	 */
-	public Jugador hayGanador(Jugador j1, Jugador j2) {
+	public Jugador hayGanador() {
 		if (!j1.tieneCartas()) {
 			return j2;
 		}
@@ -66,9 +149,9 @@ public class Juego {
 	 * 
 	 * Mezcla y reparte cartas a los jugadores.
 	 */
-	public void repartirCartas(Jugador j1, Jugador j2, Mazo mazo) {
+	public void repartirCartas() {
 		mazo.mezclarCartas();
-		this.repartirPocimas(mazo);
+		this.repartirPocimas();
 
 		for (int i = mazo.size(); i > 0; i--) {
 			if ((i % 2) == 0)
@@ -77,23 +160,17 @@ public class Juego {
 				j2.tomarCarta(mazo.pop());
 		}
 	}
-	
-	//-----------------------Pocimas------------------------------------//
-	
-	public void addPocima(Pocima pocima) {
-		this.pocimas.add(pocima);
-	}
 
 	/**
 	 * 
-	 * Reparte todas las pocimas aleatoreamenta a las cartas del mazo.
-	 * Se dan las pocimas de una a la vez al mazo para que este se la asigne a una carta.
+	 * Reparte todas las pocimas aleatoreamenta a las cartas del mazo. Se dan las
+	 * pocimas de una a la vez al mazo para que este se la asigne a una carta.
 	 * 
-	 * @param { boolean: ok } El mazo devueve false cuando no ha podido añadir una pocima,
-	 *  es decir que todas sus cartas ya tienen una pocima asignada.
+	 * @param { boolean: ok } El mazo devueve false cuando no ha podido añadir una
+	 *          pocima, es decir que todas sus cartas ya tienen una pocima asignada.
 	 * 
 	 */
-	private void repartirPocimas(Mazo mazo) {
+	private void repartirPocimas() {
 		int num = this.pocimas.size();
 		boolean ok = true;
 		while (num > 0 && ok) {
@@ -115,4 +192,23 @@ public class Juego {
 		return copia;
 	}
 
+	/**
+	 * 
+	 * Informa el numero de ronda Informa el atributo por el que los jugadores van a
+	 * competir y que jugador lo eligio. Informa la cartas jugadas.
+	 */
+	public String informacionInicial(int i, Jugador ini, Carta c1, Carta c2, String attr) {
+		String info = "";
+		info += "------- Ronda " + i + " -------" + "\n";
+		info += "El jugador " + ini + " selecciona competir por atributo " + attr + "\n";
+		info += c1.infoJugada(j1, c1, attr);
+		info += "\n";
+		info += c2.infoJugada(j2, c2, attr);
+		info += "\n";
+		return info;
+	}
+
+	public String informacionFinal() {
+		return j1 + " tiene: " + j1.totalCartas() + " cartas y " + j2 + " tiene: " + j2.totalCartas() + "\n \n";
+	}
 }

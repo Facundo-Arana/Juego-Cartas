@@ -17,4 +17,12 @@ public class PocimaCocktail extends Pocima {
 		return segundaPocima.aplicar(valorIntermedio, nombre);
 	}
 
+	@Override
+	public String infoJugada(int valor, String nombre) {
+		String info = "";
+		info += primerPocima.infoJugada(valor, nombre);
+		info += segundaPocima.infoJugada(valor, nombre);
+		return info;
+	}
+
 }
