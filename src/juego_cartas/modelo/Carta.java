@@ -123,7 +123,12 @@ public class Carta {
 	public int getValorAtributo(String attr) {
 		for (Atributo atributo : this.atributos) {
 			if (atributo.getNombre().equals(attr)) {
-				return atributo.getValor();
+				if(this.pocima != null) {					
+					return this.pocima.aplicar(atributo.getValor(), attr);
+				}
+				else {					
+					return atributo.getValor();
+				}
 			}
 		}
 		return 0;
