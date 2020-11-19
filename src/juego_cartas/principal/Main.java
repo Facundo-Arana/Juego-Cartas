@@ -21,7 +21,7 @@ public class Main {
 		Jugador j1 = new Jugador("Facundo");
 		Jugador j2 = new Jugador("Gabriel");
 
-		// se puede añadir una estrategia a cada jugador (por defecto es timbero)
+		// se puede aï¿½adir una estrategia a cada jugador (por defecto es timbero)
 		Estrategia_Ambicioso est = new Estrategia_Ambicioso();
 		j2.setEstrategia(est);
 

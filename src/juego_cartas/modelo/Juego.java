@@ -12,7 +12,7 @@ public class Juego {
 	private Jugador j2;
 	private Mazo mazo;
 
-	public Juego(int numeroMaxJugadas, Jugador j1, Jugador j2,Mazo mazo) {
+	public Juego(int numeroMaxJugadas, Jugador j1, Jugador j2, Mazo mazo) {
 		this.maxJugadas = numeroMaxJugadas;
 		this.j1 = j1;
 		this.j2 = j2;
@@ -45,13 +45,28 @@ public class Juego {
 			ronda++;
 		}
 
-		if (ganador == null)
-			info += "Los jugadores empataron";
-		else
-			info += ganador + " es el ganador de la partida!";
+		info += this.logFinal(ganador);
 
 		System.out.println(info);
 //		return info;
+	}
+
+	private String logFinal(Jugador ganador) {
+		String info = "";
+		if(ganador != null) {			
+			info += ganador + " es el ganador de la partida!";
+		}
+		else {
+			if(j1.totalCartas() > j2.totalCartas()) {
+				info += j1 + " es el ganador de la partida!";
+			}else if(j1.totalCartas() < j2.totalCartas()) {
+				info += j2 + " es el ganador de la partida!";
+			}
+			else {				
+				info += "Los jugadores empataron";
+			}
+		}
+		return info;
 	}
 
 	/**
@@ -175,7 +190,7 @@ public class Juego {
 	 * Reparte todas las pocimas aleatoreamenta a las cartas del mazo. Se dan las
 	 * pocimas de una a la vez al mazo para que este se la asigne a una carta.
 	 * 
-	 * @param { boolean: ok } El mazo devueve false cuando no ha podido añadir una
+	 * @param { boolean: ok } El mazo devueve false cuando no ha podido aï¿½adir una
 	 *          pocima, es decir que todas sus cartas ya tienen una pocima asignada.
 	 * 
 	 */
