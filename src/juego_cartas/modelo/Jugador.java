@@ -56,9 +56,6 @@ public class Jugador {
 		this.nombre = nombre;
 	}
 
-	public void mostrarCartas() {
-		this.mazoJugador.mostrarCartas();
-	}
 
 	@Override
 	public String toString() {

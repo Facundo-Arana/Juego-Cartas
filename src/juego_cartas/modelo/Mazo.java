@@ -24,7 +24,7 @@ public class Mazo {
 
 	/**
 	 * 
-	 * Verifica una carta antes de añadirla a la lista.
+	 * Verifica una carta antes de aï¿½adirla a la lista.
 	 */
 	public void setCarta(Carta carta) {
 		if (this.verificacionCarta(carta))
@@ -48,7 +48,7 @@ public class Mazo {
 
 	/**
 	 * 
-	 * Anañade una carta al PRINCIPIO de la lista. !!!!! (push != setCarta).
+	 * Anaï¿½ade una carta al PRINCIPIO de la lista. !!!!! (push != setCarta).
 	 */
 	public void push(Carta c) {
 		cartas.add(0, c);
@@ -94,7 +94,7 @@ public class Mazo {
 	 * 
 	 * Asignar a una carta la pocima recibida.
 	 * 
-	 * Se intenta añadir una pocima, si es que esta carta no tiene una pocima
+	 * Se intenta aï¿½adir una pocima, si es que esta carta no tiene una pocima
 	 * asignada anteriormente.
 	 * 
 	 */
@@ -133,7 +133,7 @@ public class Mazo {
 					cartaNueva.setAtributo(nombreAtributo, atributos.getInt(nombreAtributo));
 				}
 
-				// se añade al mazo (solo si pasa la verificacion).
+				// se aï¿½ade al mazo (solo si pasa la verificacion).
 				mazoNuevo.setCarta(cartaNueva);
 			}
 			reader.close();
@@ -145,10 +145,4 @@ public class Mazo {
 		return mazoNuevo;
 	}
 
-	public void mostrarCartas() {
-		for (int i = 0; i < cartas.size(); i++) {
-			Carta c = cartas.get(i);
-			System.out.println(c);
-		}
-	}
 }

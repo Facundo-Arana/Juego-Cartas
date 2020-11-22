@@ -52,8 +52,6 @@ public class Juego {
 //		return info;
 	}
 
-	
-
 	/**
 	 * 
 	 * @return la informacion de una ronda del juego.
@@ -70,8 +68,8 @@ public class Juego {
 
 		info += informacionInicial(ronda, cartaJ1, cartaJ2, attr);
 
-		// se determina el ganador de la ronda
-		int resultado = this.compararAtributos(attr, cartaJ1, cartaJ2);
+		// se determina el ganador de la ronda ()
+		int resultado = cartaJ1.getValor(attr) - cartaJ2.getValor(attr);
 
 		// se dan las cartas al ganador
 		if (resultado == 0) {
@@ -92,19 +90,9 @@ public class Juego {
 
 	/**
 	 * 
-	 * Determina si hubo un ganador o empate.
-	 */
-	public int compararAtributos(String attr, Carta c1, Carta c2) {
-		int val1 = c1.getValorAtributo(attr);
-		int val2 = c2.getValorAtributo(attr);
-		return val1 - val2;
-	}
-
-	/**
-	 * 
 	 * Jugador que gano la ronda recibe las dos cartas jugadas.
 	 */
-	public String darCartasAlGanador(Jugador j, Carta carta1, Carta carta2) {
+	private String darCartasAlGanador(Jugador j, Carta carta1, Carta carta2) {
 		j.tomarCarta(carta1);
 		j.tomarCarta(carta2);
 		return j + " gano la ronda \n";
@@ -114,7 +102,7 @@ public class Juego {
 	 * 
 	 * Devuelva las cartas a los jugadores (en caso de empate).
 	 */
-	public String empate(Carta c1, Carta c2) {
+	private String empate(Carta c1, Carta c2) {
 		j1.tomarCarta(c1);
 		j2.tomarCarta(c2);
 		return "\nempate!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! \n \n";
@@ -124,7 +112,7 @@ public class Juego {
 	 * 
 	 * Controla que los jugadores tengan cartas para jugar.
 	 */
-	public Jugador hayGanador() {
+	private Jugador hayGanador() {
 		if (!j1.tieneCartas()) {
 			return j2;
 		}
@@ -138,7 +126,7 @@ public class Juego {
 	 * 
 	 * Mezcla y reparte cartas a los jugadores.
 	 */
-	public void repartirCartas() {
+	private void repartirCartas() {
 		mazo.mezclarCartas();
 		this.repartirPocimas();
 
@@ -155,7 +143,7 @@ public class Juego {
 	 * Informa el numero de ronda Informa el atributo por el que los jugadores van a
 	 * competir y que jugador lo eligio. Informa la cartas jugadas.
 	 */
-	public String informacionInicial(int i, Carta c1, Carta c2, String attr) {
+	private String informacionInicial(int i, Carta c1, Carta c2, String attr) {
 		String info = "";
 		info += "------- Ronda " + i + " -------" + "\n";
 		info += "El jugador " + this.iniciaRonda + " selecciona competir por atributo " + attr + "\n";
@@ -166,7 +154,7 @@ public class Juego {
 		return info;
 	}
 
-	public String informacionFinal() {
+	private String informacionFinal() {
 		return j1 + " tiene: " + j1.totalCartas() + " cartas y " + j2 + " tiene: " + j2.totalCartas() + "\n \n";
 	}
 

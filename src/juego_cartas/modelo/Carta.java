@@ -1,7 +1,6 @@
 package juego_cartas.modelo;
 
 import java.util.ArrayList;
-
 import juego_cartas.pocima.Pocima;
 
 public class Carta {
@@ -24,8 +23,6 @@ public class Carta {
 		Atributo nuevo = new Atributo(nombre, valor);
 		atributos.add(nuevo);
 	}
-
-	
 
 	public ArrayList<String> getNombresAtributos(){
 		ArrayList<String> retorno = new ArrayList<>();
@@ -52,7 +49,7 @@ public class Carta {
 	/**
 	 * Compara dos cartas para saber si comparten los mismos atributos.
 	 */
-	public boolean contieneLosMismosAtributos(Carta otra) {
+	private boolean contieneLosMismosAtributos(Carta otra) {
 		for (Atributo atributo : this.atributos)
 			if (!otra.contieneAtributo(atributo))
 				return false;
@@ -76,13 +73,13 @@ public class Carta {
 	/**
 	 * @return true si existe un atributo igual al atributo dado.
 	 */
-	public boolean contieneAtributo(Atributo atributo) {
+	private boolean contieneAtributo(Atributo atributo) {
 		return atributos.contains(atributo);
 	}
 
 	// -------------------- Pocimas -------------------//
 
-	public boolean tienePocima() {
+	private boolean tienePocima() {
 		return this.pocima != null;
 	}
 
@@ -94,24 +91,15 @@ public class Carta {
 		return false;
 	}
 
-	public String getNombrePocima() {
-		return this.pocima.toString();
-	}
-
 	///// --------------- metodos informativos -------------///////////
-	
-	public void mostrarAtributos() {
-		for (Atributo atributo : this.atributos)
-			System.out.println(atributo);
-	}
 	
 	public String infoJugada(Jugador j,Carta carta, String attr) {
 		String info=""; 
 
-		info += j + " jugo la carta " + carta + " con " + attr + " " + carta.getValorAtributo(attr);
+		info += j + " jugo la carta " + carta + " con " + attr + " " + carta.getValor(attr);
 		
 		if(tienePocima()) 
-			info += pocima.infoJugada(carta.getValorAtributo(attr), attr);
+			info += pocima.infoJugada(carta.getValor(attr), attr);
 		
 		return info;
 	}
@@ -120,7 +108,7 @@ public class Carta {
 	 * 
 	 * @param attr es el nombre del atributo.
 	 */
-	public int getValorAtributo(String attr) {
+	public int getValor(String attr) {
 		for (Atributo atributo : this.atributos) {
 			if (atributo.getNombre().equals(attr)) {
 				if(this.pocima != null) {					
