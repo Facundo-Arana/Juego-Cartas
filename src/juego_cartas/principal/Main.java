@@ -1,6 +1,8 @@
 package juego_cartas.principal;
 
+import juego_cartas.estrategia.Estrategia;
 import juego_cartas.estrategia.Estrategia_Ambicioso;
+import juego_cartas.modelo.Carta;
 import juego_cartas.modelo.Juego;
 import juego_cartas.modelo.Jugador;
 import juego_cartas.modelo.Mazo;
@@ -9,7 +11,6 @@ import juego_cartas.pocima.PocimaDebilitadora;
 import juego_cartas.pocima.PocimaFortalecedora;
 import juego_cartas.pocima.PocimaNumeroMagico;
 import juego_cartas.pocima.PocimaSelectiva;
-
 public class Main {
 
 	public static void main(String[] args) {

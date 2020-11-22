@@ -11,12 +11,14 @@ public class Juego {
 	private Jugador j1;
 	private Jugador j2;
 	private Mazo mazo;
+	private Jugador iniciaRonda;
 
 	public Juego(int numeroMaxJugadas, Jugador j1, Jugador j2, Mazo mazo) {
 		this.maxJugadas = numeroMaxJugadas;
 		this.j1 = j1;
 		this.j2 = j2;
 		this.mazo = mazo;
+		this.iniciaRonda  = j1;
 		this.pocimas = new ArrayList<>();
 	}
 
@@ -35,12 +37,11 @@ public class Juego {
 		// auxiliares
 		int ronda = 1;
 		Jugador ganador = null;
-		Jugador iniciaRonda = j1;
 		String info = "";
 
 		// inicia el juego hasta que gane un jugador o se cumpla el total de rondas
 		while ((ganador == null) && (ronda <= this.maxJugadas)) {
-			info += jugarRonda(ronda, iniciaRonda);
+			info += jugarRonda(ronda);
 			ganador = this.hayGanador();
 			ronda++;
 		}
@@ -51,39 +52,23 @@ public class Juego {
 //		return info;
 	}
 
-	private String logFinal(Jugador ganador) {
-		String info = "";
-		if(ganador != null) {			
-			info += ganador + " es el ganador de la partida!";
-		}
-		else {
-			if(j1.totalCartas() > j2.totalCartas()) {
-				info += j1 + " es el ganador de la partida!";
-			}else if(j1.totalCartas() < j2.totalCartas()) {
-				info += j2 + " es el ganador de la partida!";
-			}
-			else {				
-				info += "Los jugadores empataron";
-			}
-		}
-		return info;
-	}
+	
 
 	/**
 	 * 
 	 * @return la informacion de una ronda del juego.
 	 */
-	private String jugarRonda(int ronda, Jugador iniciaRonda) {
+	private String jugarRonda(int ronda) {
 		String info = "";
 
 		// El jugador ganador de la ultima ronda elije el atributo
-		String attr = iniciaRonda.seleccionarAtributo();
+		String attr = this.iniciaRonda.seleccionarAtributo();
 
 		// LOS DOS JUGADORES SUELTAN SU CARTA
 		Carta cartaJ1 = j1.soltarCarta();
 		Carta cartaJ2 = j2.soltarCarta();
 
-		info += informacionInicial(ronda, iniciaRonda, cartaJ1, cartaJ2, attr);
+		info += informacionInicial(ronda, cartaJ1, cartaJ2, attr);
 
 		// se determina el ganador de la ronda
 		int resultado = this.compararAtributos(attr, cartaJ1, cartaJ2);
@@ -94,11 +79,11 @@ public class Juego {
 		} else {
 			if (resultado > 0) {
 				info += this.darCartasAlGanador(j1, cartaJ1, cartaJ2);
-				iniciaRonda = j1;
+				this.iniciaRonda = j1;
 			}
 			if (resultado < 0) {
 				info += this.darCartasAlGanador(j2, cartaJ1, cartaJ2);
-				iniciaRonda = j2;
+				this.iniciaRonda = j2;
 			}
 		}
 		info += this.informacionFinal();
@@ -170,10 +155,10 @@ public class Juego {
 	 * Informa el numero de ronda Informa el atributo por el que los jugadores van a
 	 * competir y que jugador lo eligio. Informa la cartas jugadas.
 	 */
-	public String informacionInicial(int i, Jugador ini, Carta c1, Carta c2, String attr) {
+	public String informacionInicial(int i, Carta c1, Carta c2, String attr) {
 		String info = "";
 		info += "------- Ronda " + i + " -------" + "\n";
-		info += "El jugador " + ini + " selecciona competir por atributo " + attr + "\n";
+		info += "El jugador " + this.iniciaRonda + " selecciona competir por atributo " + attr + "\n";
 		info += c1.infoJugada(j1, c1, attr);
 		info += "\n";
 		info += c2.infoJugada(j2, c2, attr);
@@ -214,6 +199,24 @@ public class Juego {
 		Pocima copia = pocimas.get(i);
 		pocimas.remove(i);
 		return copia;
+	}
+	
+	private String logFinal(Jugador ganador) {
+		String info = "";
+		if(ganador != null) {			
+			info += ganador + " es el ganador de la partida!";
+		}
+		else {
+			if(j1.totalCartas() > j2.totalCartas()) {
+				info += j1 + " es el ganador de la partida!";
+			}else if(j1.totalCartas() < j2.totalCartas()) {
+				info += j2 + " es el ganador de la partida!";
+			}
+			else {				
+				info += "Los jugadores empataron";
+			}
+		}
+		return info;
 	}
 
 }
