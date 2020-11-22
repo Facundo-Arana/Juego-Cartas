@@ -9,7 +9,6 @@ public class Carta {
 	private Pocima pocima;
 	private ArrayList<Atributo> atributos;
 
-
 	public Carta(String nombre) {
 		this.nombre = nombre;
 		this.atributos = new ArrayList<>();
@@ -24,7 +23,7 @@ public class Carta {
 		atributos.add(nuevo);
 	}
 
-	public ArrayList<String> getNombresAtributos(){
+	public ArrayList<String> getNombresAtributos() {
 		ArrayList<String> retorno = new ArrayList<>();
 		for (Atributo atributo : atributos) {
 			retorno.add(atributo.getNombre());
@@ -55,18 +54,17 @@ public class Carta {
 				return false;
 		return true;
 	}
-	
-	
+
 	/**
 	 * 
 	 * @return una copia de la carta.
 	 */
 	public Carta getCopia() {
 		Carta copia = new Carta(this.getNombre());
-		if(this.tienePocima())
+		if (this.tienePocima())
 			copia.setPocima(this.pocima);
 		for (Atributo atributo : this.atributos)
-				copia.setAtributo(atributo.getNombre(), atributo.getValor());
+			copia.setAtributo(atributo.getNombre(), atributo.getValor());
 		return copia;
 	}
 
@@ -92,36 +90,47 @@ public class Carta {
 	}
 
 	///// --------------- metodos informativos -------------///////////
-	
-	public String infoJugada(Jugador j,Carta carta, String attr) {
-		String info=""; 
 
-		info += j + " jugo la carta " + carta + " con " + attr + " " + carta.getValor(attr);
-		
-		if(tienePocima()) 
-			info += pocima.infoJugada(carta.getValor(attr), attr);
-		
+	public String infoJugada(Jugador j, Carta carta, String attr) {
+		String info = "";
+
+		info += j + " jugo la carta " + carta + " con " + attr + " " + carta.getAtributo(attr).getValor();
+
+		if (tienePocima())
+			info += pocima.infoJugada(carta.getAtributo(attr).getValor(), attr);
+
 		return info;
 	}
-	
+
+	/**
+	 * este metodo privado se utiliza para obtener el valor original del atributo en
+	 * el log
+	 */
+	private Atributo getAtributo(String attr) {
+		for (Atributo atributo : this.atributos) {
+			if (atributo.getNombre().equals(attr)) {
+				return atributo;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * 
 	 * @param attr es el nombre del atributo.
 	 */
 	public int getValor(String attr) {
-		for (Atributo atributo : this.atributos) {
-			if (atributo.getNombre().equals(attr)) {
-				if(this.pocima != null) {					
-					return this.pocima.aplicar(atributo.getValor(), attr);
-				}
-				else {					
-					return atributo.getValor();
-				}
+		Atributo a = this.getAtributo(attr);
+		if (a != null) {
+			if (this.pocima != null) {
+				return this.pocima.aplicar(a.getValor(), attr);
+			} else {
+				return a.getValor();
 			}
 		}
 		return 0;
 	}
-	
+
 	@Override
 	public String toString() {
 		return nombre;
